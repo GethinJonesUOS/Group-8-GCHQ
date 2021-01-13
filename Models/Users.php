@@ -69,7 +69,7 @@ class Users
         $temp = 'blank-profile-picture.png';
 
         //Inserting values to the user table
-        $sqlQuery1 = ("INSERT INTO hello (email, password, first_name, last_name, image) VALUES ( :email_ins, :password_ins, :firstname_ins, :lastname_ins, :image_ins)");
+        $sqlQuery1 = ("INSERT INTO users (email, password, first_name, last_name, image) VALUES ( :email_ins, :password_ins, :firstname_ins, :lastname_ins, :image_ins)");
         $statement1 = $this->_dbHandle->prepare($sqlQuery1); // prepare a PDO statement
         $statement1->bindParam(':email_ins', $data['email']);  //binding all needed parameters
         $statement1->bindParam(':password_ins', $data['password']);

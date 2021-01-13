@@ -3,7 +3,7 @@
 class User {
 
     //Instantiating variables
-    protected  $_id, $_email, $_password, $_firstname, $_lastname, $_user_image, $_address;
+    protected  $_id, $_email, $_password, $_firstname, $_lastname, $_user_image;
 
     //Constructor
     public function __construct($dbRow) {
@@ -14,8 +14,6 @@ class User {
         $this->_lastname = $dbRow['last_name'];
         //if ($dbRow['image']) $this->_user_image = 'yes'; else $this->_user_image = 'no';
         $this->_image = $dbRow['image'];
-        $this->_address = $dbRow['address_id'];
-        //$this->_postcode = $dbRow['postcode'];
     }
 
     //Get methods to access
@@ -41,13 +39,5 @@ class User {
 
     public function getUserImage() {
         return $this->_user_image;
-    }
-
-    public function getUserAddress() {
-        return $this->_address;
-    }
-
-    public function getUserPostcode() {
-        return $this->_postcode;
     }
 }

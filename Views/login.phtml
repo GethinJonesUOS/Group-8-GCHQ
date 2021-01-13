@@ -1,0 +1,23 @@
+<?php require('template/header.phtml') ?>
+
+    <div class="login">
+        <h1>Login</h1>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+
+            <label for="email">
+                <i class="fas fa-user"></i>
+            </label>
+            <input type="text" name="email" placeholder="Email" required>
+
+            <label for="password">
+                <i class="fas fa-lock"></i>
+            </label>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <input type="submit" value="Login">
+
+            <p class="option">Not registered yet? <a href="register.php">Sign Up</a></p>
+        </form>
+    </div>
+
+<?php require('template/footer.phtml') ?>

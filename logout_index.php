@@ -10,6 +10,6 @@ $users = new Users();
 //End cookie session
 $view->users = $users->logout();
 
-header('location: /index.php');
+header('location: /desktop.php');
 
 require_once('Views/logout_index.phtml');

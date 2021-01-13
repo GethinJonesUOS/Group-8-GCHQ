@@ -38,7 +38,6 @@ if (isset($_POST['email'], $_POST['password'])) {
         'confirmPasswordError' => ''
     ];
 
-
     //call to registerValidation method in Users and pass the array
     $view->users = $users->registerValidation($data);
 

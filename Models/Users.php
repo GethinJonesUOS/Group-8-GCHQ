@@ -78,6 +78,9 @@ class Users
         $statement1->bindParam(':image_ins', $temp);
         $statement1->execute(); // execute the PDO statement
 
+        if ($this->findUserByEmail($data['email'])) {
+            header('location: /login.php');
+        }
     }
 
     /* Validating login details */
@@ -105,7 +108,7 @@ class Users
     /* Login method */
     public function login($data) {
 
-        $sqlQuery = ("SELECT * FROM hello WHERE email = :email");
+        $sqlQuery = ("SELECT * FROM users WHERE email = :email");
 
         //Execute the query
         try
@@ -130,6 +133,7 @@ class Users
 
             if (password_verify($data['password'], $hashedPassword)) {
                 $this->createUserSession($user);
+                header('location: /index.php');
 
             } else {
                 $user = null;
@@ -145,7 +149,7 @@ class Users
     /* Get user information */
     public function getUserInfo($user_id) {
 
-        $sqlQuery = ("SELECT * FROM hello WHERE id = :user_id");
+        $sqlQuery = ("SELECT * FROM users WHERE id = :user_id");
 
         //Execute the query
         try
@@ -170,7 +174,7 @@ class Users
     public function findUserByEmail($email) {
 
         //Prepare statement
-        $sqlQuery = 'SELECT * FROM hello WHERE email = :_email';
+        $sqlQuery = 'SELECT * FROM users WHERE email = :_email';
         $statement = $this->_dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->bindParam(':_email', $email);
         $statement->execute(); // execute the PDO statement
@@ -186,7 +190,6 @@ class Users
     public function createUserSession($user) {
         $_SESSION['user_id'] = $user->getUserID();
         $_SESSION['email'] = $user->getEmail();
-        header('location: /lotList.php');
     }
 
     /* Delete current session */

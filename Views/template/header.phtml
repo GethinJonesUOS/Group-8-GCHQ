@@ -22,32 +22,37 @@
 
 <body role=""document">
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.php">Project X</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="#">Page1</a></li>
-            <li><a href="#">Page2</a></li>
-        </ul>
+        <a class="navbar-brand text-light" href="index.php">Project X</a>
 
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <?php if(isLoggedIn()) : ?>
-                <a href="profile.php"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-                <?php else : ?>
-                <a href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
-                <?php endif; ?>
-            </li>
-            <li>
-                <?php if(isLoggedIn()) : ?>
-                <a href="logout_index.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
-                <?php else : ?>
-                <a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-                <?php endif; ?>
-            </li>
-        </ul>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link text-light" href="#">Page1</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="#">Page2</a></li>
+            </ul>
+
+            <ul class="navbar-nav mt-2 mt-md-0">
+                <li class="nav-item">
+                    <?php if(isLoggedIn()) : ?>
+                    <a class="nav-link text-light" href="profile.php"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                    <?php else : ?>
+                    <a class="nav-link text-light" href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    <?php endif; ?>
+                </li>
+                <li class="nav-item">
+                    <?php if(isLoggedIn()) : ?>
+                    <a class="nav-link text-light" href="logout_index.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                    <?php else : ?>
+                    <a class="nav-link text-light" href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    <?php endif; ?>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 

@@ -45,3 +45,8 @@
 .btn-dark {
     background-color: #353535 !important
 }
+
+#email-list {
+    overflow: scroll;
+    height: 600px !important;
+}

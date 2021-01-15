@@ -1,0 +1,188 @@
+<?php require('template/header.phtml'); ?>
+
+
+    <div class="webbrowser">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="container">
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="changeImg('images/web-linkedin.png')">http://www.Iinkdin.com</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="changeImg('images/web-paypal.png')">https://www.paypal.com/uk/home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="changeImg('images/web-deal.png')">https://www.currys.co.uk/app/mac</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="changeImg('images/web-checkout.png')">https://www.currys.co.uk/app/checkout</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="container">
+                    <div class="col-md-12 px-0">
+                        <img id="change_img_target" class="img-fluid" src="images/web-linkedin.png">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <h2>How to spot fake or scam website: </h2>
+    <hr class="my-4">
+
+    <!--- Types of treats -->
+    <div class="container-fluid padding">
+        <div class="row padding">
+            <div class="col-md-6">
+                <h4>Step #1: Check the address bar and the domain name</h4>
+                <p> The first step to ensure that a website is legit is to check the address bar.
+                    A trustworthy website should have a padlock symbol and starts with 'https://'
+                    or 'shttp://'. The 'S' indicates that the website
+                    is encrypted and secured with SSL certificate.</p>
+
+                <p> Another clue for fake or scam website is the wrong spelling in the address name.
+                    Fraudsters would try to replicate the domain names of a legit website - E.g.
+                    www.yah00.com instead of www.yahoo.com.</p>
+                <br>
+            </div>
+            <div class="col-md-6">
+                <figure>
+                    <img src="images/check-address.png" class="img-fluid" alt="Check Address/Url">
+                </figure>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4">
+
+    <div class="container-fluid padding">
+        <div class="row padding">
+            <div class="col-md-6">
+                <figure>
+                    <img src="images/analyse-content.png" alt="Analyse Content" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-md-6">
+                <h2>Step #2: Assess the content within the site</h2>
+                <p>Crafting a website requires a lot of hard. An excess of spelling, punctual and grammar mistakes
+                    indicates that the website has been built fast. Hence, it might be fake or a scam.</p>
+                <br>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4">
+
+    <!--- Types of treats -->
+    <div class="container-fluid padding">
+        <div class="row padding">
+            <div class="col-md-6">
+                <h4>Step #3: Deals that are too good to be true</h4>
+                <p> In certain occasions, retail stores might discount their products. However, if for example the
+                    latest tech is listed at an 80% discount, should raise concerns. If something is too good
+                    to be true probably is!</p>
+                <br>
+            </div>
+            <div class="col-md-6">
+                <figure>
+                    <img src="images/amazing-deal.png" class="img-fluid" alt="Check Address/Url">
+                </figure>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4">
+
+    <div class="container-fluid padding">
+        <div class="row padding">
+            <div class="col-md-6">
+                <figure>
+                    <img src="images/bad-pay.png" alt="Analyse Content" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-md-6">
+                <h2>Step #4: Trusted payment methods</h2>
+                <p>A legitimate website would accept PayPal or credit card as payment method. If that is not the case, and
+                    the only option to pay is wire transfer, for example, a not refundable method, then that should
+                    raise concerns.</p>
+                <br>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <form action="webbrowser.php">
+
+                    <h3>Please answer which of the above pages raising the following concerns: </h3>
+
+                    <div class="col-md-6>">
+                        <h6>Unreliable Address Bar</h6>
+                    </div>
+                    <div class="col-md-6>">
+                        <input list="browsers" name="browser1">
+                        <datalist id="browsers">
+                            <option value="LinkedIn">
+                            </option><option value="PayPal">
+                            </option><option value="Currys.co.uk/hp-envy">
+                            </option><option value="Currys.co.uk/checkout">
+                            </option></datalist>
+                    </div>
+
+                    <div class="col-md-6>">
+                        <h6>Unreliable Content</h6>
+                    </div>
+                    <div class="col-md-6>">
+                        <input list="browsers" name="browser2">
+                        <datalist id="browsers">
+                            <option value="LinkedIn">
+                            </option><option value="PayPal">
+                            </option><option value="Currys.co.uk/hp-envy">
+                            </option><option value="Currys.co.uk/checkout">
+                            </option></datalist>
+                    </div>
+
+                    <div class="col-md-4>">
+                        <h6>Suspicious Deal</h6>
+                    </div>
+                    <div class="col-md-4>">
+                        <input list="browsers" name="browser3">
+                        <datalist id="browsers">
+                            <option value="LinkedIn">
+                            </option><option value="PayPal">
+                            </option><option value="Currys.co.uk/hp-envy">
+                            </option><option value="Currys.co.uk/checkout">
+                            </option></datalist>
+                    </div>
+
+                    <div class="col-md-4>">
+                        <h6>Alarming Payment Method</h6>
+                    </div>
+                    <div class="col-md-4>">
+                        <input list="browsers" name="browser4">
+                        <datalist id="browsers">
+                            <option value="LinkedIn">
+                            </option><option value="PayPal">
+                            </option><option value="Currys.co.uk/hp-envy">
+                            </option><option value="Currys.co.uk/checkout">
+                            </option></datalist>
+                    </div>
+
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeImg(url) {
+            document.getElementById("change_img_target").src = url;
+        }
+    </script>
+
+<?php require('template/footer.phtml') ?>

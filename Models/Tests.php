@@ -22,9 +22,10 @@ class Tests
         $date = date('Y-m-d H:i:s');
 
         //Inserting values to the test table
-        $sqlQuery = ("INSERT INTO tests (user_email, result, date) VALUES ( :user_email_ins, :result_ins, :date_ins)"); //Option2: add date using SQL VALUES (now())
+        $sqlQuery = ("INSERT INTO tests (user_email, test_name, result, date) VALUES ( :user_email_ins, :test_name_ins, :result_ins, :date_ins)"); //Option2: add date using SQL VALUES (now())
         $statement = $this->_dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->bindParam(':user_email_ins', $_SESSION['email']);  //binding all needed parameters
+        $statement->bindParam(':test_name_ins', $data['test_name']);
         $statement->bindParam(':result_ins', $data['email']);
         $statement->bindParam(':date_ins', $date);
         $statement->execute(); // execute the PDO statement

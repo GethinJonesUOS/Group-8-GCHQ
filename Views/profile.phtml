@@ -32,6 +32,21 @@
             </tbody>
         </table>
 
+        <h3> Test results: </h3>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Test No: </th><th>Result</th><th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($view->testData as $test) {
+                echo '<tr> <td>' . $test->getID() . '</td> <td>' . $test->getResult() . '</td> <td>' . $user->getDate() . '</td> </tr>';
+            }
+            ?>
+            </tbody>
+        </table>
+
     </form>
 
 <?php require('template/footer.phtml') ?>

@@ -33,7 +33,7 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link text-light" href="#">Page1</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="/desktop.php">Desktop</a></li>
                 <li class="nav-item"><a class="nav-link text-light" href="#">Page2</a></li>
             </ul>
 
@@ -58,15 +58,16 @@
 </nav>
 
 <div class="container">
-        <div  class="row">
-            <div id="title" class="col-xs-12">
+        <div class="row">
+            <div id="title" class="col-4">
                 <img src="images/project-x-logo.png" alt="Project X" />
-                    <div class="pull-right"> <h1><?php echo $view->pageTitle ?> </h1></div>
-
+            </div>
+            <div class="col-8">
+                <h1 class="float-right pt-4 pr-3"><?php echo $view->pageTitle ?> </h1>
             </div>
         </div>
 
-    <div id="content" class="col-xs-16">
+    <div id="content" class="col-xs-12">
 
 
 

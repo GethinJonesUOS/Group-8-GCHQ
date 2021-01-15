@@ -1,0 +1,11 @@
+<a href="/email.php?selected=<?php echo $email->getID() ?>" class="text-reset">
+    <div class="card mt-2">
+        <div class='card-header text-truncate'>
+            From: <?php echo substr($email->getFrom(), 0, 100) ?>
+        </div>
+        <div class='card-body py-0'>
+            <p class='text-truncate'>Subject: <?php echo substr(filter_var($email->getSubject(), FILTER_SANITIZE_FULL_SPECIAL_CHARS), 0, 100) ?></p>
+            <p class='text-truncate'><?php echo substr(strip_tags ($email->getBody()), 0, 100) ?></p>
+        </div>
+    </div>
+</a>

@@ -2,23 +2,80 @@
 
 </div>
 
-<div class="container bg-light">
+<div class="container bg-light border shadow">
+    <div class="row">
+        <div class="col-4 bg-dark">
+            <form class="form-inline ml-md-0 ml-lg-5" action="../lotsearch" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Search..." aria-label="Search" aria-describedby="search1">
+                    <div class="input-group-append">
+                        <button type="submit" class="img-thumbnail btn-outline-secondary input-group-text">
+                            <img src="../images/bootstrap-icons/search.svg" alt="" width="16" height="16" title="Search">
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-8 bg-dark">
+        </div>
+    </div>
     <div class="row">
         <div class="col col-sm-4" id="email-list">
-            <div class="card">
-                A N Other
-            </div>
-            <div class="card">
-                A N Other
-            </div>
-            <div class="card">
-                A N Other
+            <?php
+                foreach ($view->emails as $email) {
+                    include 'Views/email_card.phtml';
+                }
+            ?>
+        </div>
+        <div class="col col-sm-8">
+            <div class="row">
+                <div class="col col-12 bg-white" id="email-content">
+                    <?php
+                    if (isset($view->selectedEmail)) {
+                        include 'email_header.phtml';
+                        echo $view->transformedBody;
+                    } else {
+                        echo "<p class='text-center'>Select an email to start</p>";
+                    }
+                    ?>
+                </div>
+                <div class="col col-12">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-4">
+                                <button class="btn btn-success btn-lg" type="button">Real</button>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-danger btn-lg" type="button">Phishing</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col col-sm-5">
-            email content
-        </div>
+    </div>
+    <div class="row">
+        <div class="col-12" id="status">&nbsp;</div>
     </div>
 </div>
 
 <?php require('template/footer.phtml') ?>
+
+<script type="application/javascript">
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[hint]'))
+
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl, {html: true, toggle: 'tooltip', placement: 'auto'})
+})
+
+function setStatus(tag) {
+    var statusValue = document.getElementById("status");
+    statusValue.innerText = tag.attributes.getNamedItem("url").value;
+}
+
+function clearStatus(tag) {
+    var statusValue = document.getElementById("status");
+    statusValue.innerHTML = "&nbsp;";
+}
+</script>

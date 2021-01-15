@@ -28,7 +28,7 @@ class HintGenerator {
             $hintPos = strpos($this->_text, 'hint', $hintPos);
             if ($hintPos == false) {
                 $textEnd = strlen($this->_text) - 1;
-                $sections[] = substr($this->_text, $sectionStart, $textEnd - $sectionStart);
+                $sections[] = substr($this->_text, $sectionStart, $textEnd - $sectionStart + 1);
                 $eof = true;
             } else {
                 $tagStart = $this->getTagStart($hintPos);

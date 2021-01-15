@@ -11,9 +11,10 @@ $testData = new Tests();
 
 if (isLoggedIn()) {
     $user_id = (int)$_SESSION['user_id'];
-
-    //send data to set new bid of valid
+    
     $view->userData = $userData->getUserInfo($user_id);
+
+    $view->testDate = $testData->getResults();
 }
 
 require_once('Views/profile.phtml');

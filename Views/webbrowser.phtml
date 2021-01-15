@@ -117,7 +117,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <form action="webbrowser.php">
+                <form action="webbrowser.php" method="post">
 
                     <h3>Please answer which of the above pages raising the following concerns: </h3>
 
@@ -125,7 +125,7 @@
                         <h6>Unreliable Address Bar</h6>
                     </div>
                     <div class="col-md-6>">
-                        <input list="browsers" name="browser1">
+                        <input list="browsers" name="browser1" required>
                         <datalist id="browsers">
                             <option value="LinkedIn">
                             </option><option value="PayPal">
@@ -138,7 +138,7 @@
                         <h6>Unreliable Content</h6>
                     </div>
                     <div class="col-md-6>">
-                        <input list="browsers" name="browser2">
+                        <input list="browsers" name="browser2" required>
                         <datalist id="browsers">
                             <option value="LinkedIn">
                             </option><option value="PayPal">
@@ -151,7 +151,7 @@
                         <h6>Suspicious Deal</h6>
                     </div>
                     <div class="col-md-4>">
-                        <input list="browsers" name="browser3">
+                        <input list="browsers" name="browser3" required>
                         <datalist id="browsers">
                             <option value="LinkedIn">
                             </option><option value="PayPal">
@@ -164,7 +164,7 @@
                         <h6>Alarming Payment Method</h6>
                     </div>
                     <div class="col-md-4>">
-                        <input list="browsers" name="browser4">
+                        <input list="browsers" name="browser4" required>
                         <datalist id="browsers">
                             <option value="LinkedIn">
                             </option><option value="PayPal">

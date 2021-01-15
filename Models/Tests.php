@@ -26,14 +26,14 @@ class Tests
         $statement = $this->_dbHandle->prepare($sqlQuery); // prepare a PDO statement
         $statement->bindParam(':user_email_ins', $_SESSION['email']);  //binding all needed parameters
         $statement->bindParam(':test_name_ins', $data['test_name']);
-        $statement->bindParam(':result_ins', $data['email']);
+        $statement->bindParam(':result_ins', $data['result']);
         $statement->bindParam(':date_ins', $date);
         $statement->execute(); // execute the PDO statement
     }
 
     public function getResults() {
 
-        $sqlQuery = ("SELECT * FROM tests WHERE user_email = :user_email_in");
+        $sqlQuery = ("SELECT test_name, result, date FROM tests WHERE user_email LIKE :user_email_in");
 
         //Execute the query
         try

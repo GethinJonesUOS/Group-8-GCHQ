@@ -259,6 +259,12 @@
     font-weight: 300;
 }
 
+.link {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
+
 /* table layout */
 
 /*td*/

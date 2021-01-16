@@ -271,11 +271,24 @@
     margin: 50px auto;
 }
 
-#desktop {
-    background-color: #ffffff;
-    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-    margin: 50px auto;
+.shadow {
+    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3) !important;
 }
+
+#desktop {
+    height: 600px !important;
+}
+
+#email-list {
+    overflow: scroll;
+    height: 600px !important;
+}
+
+#email-content {
+    overflow: scroll;
+    height: 550px !important;
+}
+
 /* table layout */
 
 /*td*/

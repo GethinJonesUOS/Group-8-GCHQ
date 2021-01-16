@@ -1,6 +1,12 @@
 <a href="/email.php?selected=<?php echo $email->getID() ?>" class="text-reset">
     <div class="card mt-2">
-        <div class='card-header text-truncate'>
+        <?php if ($email->getUserAnswer() == 'real') : ?>
+            <div class='card-header text-truncate bg-success'>
+        <?php elseif ($email->getUserAnswer() == 'phishing') : ?>
+            <div class='card-header text-truncate bg-danger'>
+        <?php else : ?>
+            <div class='card-header text-truncate'>
+        <?php endif; ?>
             From: <?php echo substr($email->getFrom(), 0, 100) ?>
         </div>
         <div class='card-body py-0'>

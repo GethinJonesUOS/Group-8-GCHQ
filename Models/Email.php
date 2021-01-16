@@ -7,6 +7,7 @@ class Email {
     protected $_subject;
     protected $_body;
     protected $_isPhishing;
+    protected $_userAnswer;
 
     /**
      * Email constructor.
@@ -18,6 +19,7 @@ class Email {
         $this->_subject = $row['subject'];
         $this->_body = $row['body'];
         $this->_isPhishing = $row['isPhishing'];
+        $this->_userAnswer = '';
     }
 
     /**
@@ -59,9 +61,35 @@ class Email {
     /**
      * Returns true if the email is a phishing email.
      *
-     * @return mixed
+     * @return bool
      */
-    public function isPhishing() {
-        return $this->_isPhishing;
+    public function isPhishing() : bool {
+        return $this->_isPhishing == 1;
+    }
+
+    /**
+     * Get the user's selected answer to this email
+     *
+     * @return string
+     */
+    public function getUserAnswer() : string {
+        return $this->_userAnswer;
+    }
+
+    /**
+     * @return bool
+     */
+    public function checkAnswer() : bool {
+        return ($this->isPhishing() && $this->_userAnswer == 'phishing') ||
+            (!$this->isPhishing() && $this->_userAnswer == 'real');
+    }
+
+    /**
+     * Set the user's selected answer to this email
+     *
+     * @param $value
+     */
+    public function setUserAnswer($value) {
+        $this->_userAnswer = $value;
     }
 }

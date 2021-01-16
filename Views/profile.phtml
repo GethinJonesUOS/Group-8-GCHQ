@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             <?php foreach ($view->testData as $test) {
-                echo '<tr> <td>' . $test->getTestID() . '</td> <td>' . $test->getTestName() . '</td> <td>' . $test->getResult() . '</td> <td>' . $test->getDate() . '</td> </tr>';
+                echo '<tr> <td>' . $test->getTestID() . '</td> <td>' . $test->getTestName() . '</td> <td>' . $test->getResult() . '%</td> <td>' . $test->getDate() . '</td> </tr>';
             }
             ?>
             </tbody>

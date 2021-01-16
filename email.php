@@ -1,10 +1,15 @@
 <?php
 
-
 require_once 'Models/Users.php';
 require_once 'Models/Emails.php';
 require_once 'Models/HintGenerator.php';
 require_once 'Models/Tooltips.php';
+require_once 'Models/Tests.php';
+
+if (!isLoggedIn()) {
+    header('location: /index.php');
+    exit;
+}
 
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == true) {
@@ -25,7 +30,11 @@ if (isset($_POST['submit'])) {
 
             $score = round($correctAnswerCount / $emailCount * 100, 0);
 
-            echo "Score: $score" . PHP_EOL;
+            $tests = new Tests();
+            $result = ['test_name' => 'Email Test', 'result' => $score];
+            $tests->addResluts($result);
+            header('location: /profile.php');
+            exit;
         } else {
             echo 'An unexpected error has occured.';
             exit;

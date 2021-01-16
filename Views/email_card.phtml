@@ -9,7 +9,11 @@
         <?php endif; ?>
             From: <?php echo substr($email->getFrom(), 0, 100) ?>
         </div>
+        <?php if (isset($view->selectedEmail) && $view->selectedEmail->getID() == $email->getID()) : ?>
+        <div class='card-body py-0 bg-light'>
+        <?php else : ?>
         <div class='card-body py-0'>
+        <?php endif ?>
             <p class='text-truncate'>Subject: <?php echo substr(filter_var($email->getSubject(), FILTER_SANITIZE_FULL_SPECIAL_CHARS), 0, 100) ?></p>
             <p class='text-truncate'><?php echo substr(strip_tags ($email->getBody()), 0, 100) ?></p>
         </div>

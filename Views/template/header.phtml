@@ -33,7 +33,11 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link text-light" href="/">Home</a></li>
+                <?php if(isLoggedIn()) : ?>
                 <li class="nav-item"><a class="nav-link text-light" href="/desktop.php">Desktop</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="/mobile.php">Mobile</a></li>
+                <?php endif ?>
             </ul>
 
             <ul class="navbar-nav mt-2 mt-md-0">

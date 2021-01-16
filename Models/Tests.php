@@ -16,6 +16,7 @@ class Tests
         $this->_dbHandle = $this->_dbInstance->getDbConnection();
     }
 
+    //TODO: Change name to addResults (although resluts is pretty funny)
     public function addResluts($data) {
 
         //gets current date
@@ -33,7 +34,7 @@ class Tests
 
     public function getResults() {
 
-        $sqlQuery = ("SELECT id, test_name, result, date FROM tests WHERE user_email LIKE :user_email_in");
+        $sqlQuery = ("SELECT user_email, id, test_name, result, date FROM tests WHERE user_email LIKE :user_email_in");
 
         //Execute the query
         try

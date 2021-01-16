@@ -16,7 +16,22 @@
                 </div>
             </form>
         </div>
-        <div class="col-8 bg-dark">
+        <div class="col-2 bg-dark">
+            <span class="text-light">EMails Checked: <?php echo $view->answerCount . '/' . $view->emailCount ?></span>
+        </div>
+        <div class="col-4 bg-dark">
+            <form action="/email.php" method="post">
+                <?php if ($view->answerCount == $view->emailCount && $view->emailCount > 0) : ?>
+                <button type="submit" class="btn btn-secondary" name="submit" value="true">Submit Answers</button>
+                <?php else : ?>
+                <button class="btn btn-secondary" disabled>Submit Answers</button>
+                <?php endif ?>
+            </form>
+        </div>
+        <div class="col-2 bg-dark">
+            <form class="" action="/email.php" method="post">
+                <button class="btn btn-secondary float-right" type="submit" name="reset" value="true">Reset Answers</button>
+            </form>
         </div>
     </div>
     <div class="row">
@@ -42,12 +57,25 @@
                 <div class="col col-12">
                     <div class="container">
                         <div class="row">
-                            <div class="col-2"></div>
-                            <div class="col-4">
-                                <button class="btn btn-success btn-lg" type="button">Real</button>
-                            </div>
-                            <div class="col-4">
-                                <button class="btn btn-danger btn-lg" type="button">Phishing</button>
+                            <div class="col-12">
+                                <?php if (isset($view->selectedEmail)) : ?>
+                                    <form class="form-inline" action="/email.php" method="post">
+                                        <input type="hidden" name="selected" value="<?php echo $view->selectedEmail->getId() ?>">
+
+                                        <?php if ($view->selectedEmail->getUserAnswer() == 'real') : ?>
+                                            <button type="submit" name="answer" value="real" class="btn btn-success btn-lg m-auto" type="button">Real</button>
+                                            <button type="submit" name="answer" value="phishing" class="btn btn-outline-danger btn-lg m-auto" type="button">Phishing</button>
+                                        <?php elseif ($view->selectedEmail->getUserAnswer() == 'phishing') : ?>
+                                            <button type="submit" name="answer" value="real" class="btn btn-outline-success btn-lg m-auto" type="button">Real</button>
+                                            <button type="submit" name="answer" value="phishing" class="btn btn-danger btn-lg m-auto" type="button">Phishing</button>
+                                        <?php else : ?>
+                                            <button type="submit" name="answer" value="real" class="btn btn-outline-success btn-lg m-auto" type="button">Real</button>
+                                            <button type="submit" name="answer" value="phishing" class="btn btn-outline-danger btn-lg m-auto" type="button">Phishing</button>
+                                        <?php endif; ?>
+
+
+                                    </form>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

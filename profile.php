@@ -14,7 +14,7 @@ if (isLoggedIn()) {
     
     $view->userData = $userData->getUserInfo($user_id);
 
-    $view->testDate = $testData->getResults();
+    $view->testData = $testData->getResults();
 }
 
 require_once('Views/profile.phtml');

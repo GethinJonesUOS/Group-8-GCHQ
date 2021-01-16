@@ -33,7 +33,7 @@ class Tests
 
     public function getResults() {
 
-        $sqlQuery = ("SELECT test_name, result, date FROM tests WHERE user_email LIKE :user_email_in");
+        $sqlQuery = ("SELECT id, test_name, result, date FROM tests WHERE user_email LIKE :user_email_in");
 
         //Execute the query
         try
@@ -48,9 +48,11 @@ class Tests
             throw new Exception('Database query error');
         }
 
-        $row = $statement->fetch();
-        $test[] = new Test($row);
+        $dataSet = [];
+        while ($row = $statement->fetch()) {
+            $dataSet[] = new Test($row);
+        }
 
-        return $test;
+        return $dataSet;
     }
 }

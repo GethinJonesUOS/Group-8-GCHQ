@@ -19,7 +19,7 @@ if (isset($_POST['browser1'], $_POST['browser2'], $_POST['browser3'], $_POST['br
     if ($_POST['browser2'] == 'PayPal') {
         $result += 25;
     }
-    if ($_POST['browser3'] == 'Currys.co.uk/hp-envy') {
+    if ($_POST['browser3'] == 'Currys.co.uk/Mac') {
         $result += 25;
     }
     if ($_POST['browser4'] == 'Currys.co.uk/checkout') {

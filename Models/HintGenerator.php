@@ -81,15 +81,11 @@ class HintGenerator {
         $hintId = $this->getHintId($tag);
         $hint = $this->_tooltips[$hintId];
 
-        //$hint = "<H3>This is a hint</H3><p>Here we can put some information about what the user is hovering over</p>";
-
         $tagSections[] = substr($tag, 0, strlen($tag) - 1);
         $tagSections[] = "title=\"$hint\"";
 
         if ($this->hasAttribute($tag, "url")) {
             $tagSections[] = "class=\"link\"";
-            $tagSections[] = "onmouseover=\"setStatus(this)\"";
-            $tagSections[] = "onmouseout=\"clearStatus(this)\"";
         }
 
         $tagSections[] = ">";

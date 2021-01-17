@@ -265,6 +265,12 @@
     cursor: pointer;
 }
 
+.btn-check {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+
 .webbrowser {
     background-color: #ffffff;
     box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
@@ -287,6 +293,10 @@
 #email-content {
     overflow: scroll;
     height: 550px !important;
+}
+
+.email-card {
+    cursor: default;
 }
 
 /* table layout */

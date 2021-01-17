@@ -63,9 +63,9 @@ class Email {
     /**
      * Get the body of the email.
      *
-     * @return mixed
+     * @return string
      */
-    public function getBody() {
+    public function getBody() : string {
         return $this->_body;
     }
 
@@ -104,5 +104,17 @@ class Email {
      */
     public function setUserAnswer($value) {
         $this->_userAnswer = $value;
+    }
+
+    public function json_encode() {
+        $obj = new stdClass();
+        $obj->id = $this->_id;
+        $obj->from = $this->_from;
+        $obj->fromName = $this->_fromName;
+        $obj->subject = $this->_subject;
+        $obj->isPhishing = $this->_isPhishing;
+        $obj->userAnswer = $this->_userAnswer;
+
+        return $this->json_encode($obj);
     }
 }

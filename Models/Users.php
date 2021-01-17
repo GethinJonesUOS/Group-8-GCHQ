@@ -167,7 +167,7 @@ class Users
         $row = $statement->fetch();
         $user[] = new User($row);                                                  //SHOULD BE: LotPageData
 
-        return $user;
+        return $user; //TODO: This function needs to return an object, not an array
     }
 
     /* Find user by email */

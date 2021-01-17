@@ -1,4 +1,7 @@
-<div class="pb-3">
-    <h5>From: <?php echo $view->selectedEmail->getFromName() . ' &lt;' . $view->selectedEmail->getFrom() . '&gt;'?></h5>
-    <h5>Subject: <?php echo $view->selectedEmail->getSubject() ?></h5>
+<div class="pb-3" id="email-header">
+    <h5>From:
+        <span id="selected-from-name"></span>
+        &lt;<span id="selected-from"></span>&gt;
+    </h5>
+    <h5>Subject: <span id="selected-subject"></span></h5>
 </div>

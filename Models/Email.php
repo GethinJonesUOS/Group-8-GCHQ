@@ -4,6 +4,7 @@
 class Email {
     protected $_id;
     protected $_from;
+    protected $_fromName;
     protected $_subject;
     protected $_body;
     protected $_isPhishing;
@@ -16,6 +17,7 @@ class Email {
     public function __construct($row) {
         $this->_id = $row['id'];
         $this->_from = $row['from'];
+        $this->_fromName = $row['from_name'];
         $this->_subject = $row['subject'];
         $this->_body = $row['body'];
         $this->_isPhishing = $row['isPhishing'];
@@ -32,20 +34,29 @@ class Email {
     }
 
     /**
-     * Get the sender of the email.
+     * Get the from address of the email.
      *
-     * @return mixed
+     * @return string
      */
-    public function getFrom() {
+    public function getFrom() :string {
         return $this->_from;
+    }
+
+    /**
+     * Get the name of the email sender.
+     *
+     * @return string
+     */
+    public function getFromName() : string {
+        return $this->_fromName;
     }
 
     /**
      * Get the subject of the email.
      *
-     * @return mixed
+     * @return string
      */
-    public function getSubject() {
+    public function getSubject() : string {
         return $this->_subject;
     }
 
@@ -77,6 +88,8 @@ class Email {
     }
 
     /**
+     * Check if the answer provided by the user matches the correct answer.
+     *
      * @return bool
      */
     public function checkAnswer() : bool {

@@ -1,4 +1,4 @@
 <div class="pb-3">
-    <h5>From: <?php echo $view->selectedEmail->getFrom() ?></h5>
+    <h5>From: <?php echo $view->selectedEmail->getFromName() . ' &lt;' . $view->selectedEmail->getFrom() . '&gt;'?></h5>
     <h5>Subject: <?php echo $view->selectedEmail->getSubject() ?></h5>
 </div>

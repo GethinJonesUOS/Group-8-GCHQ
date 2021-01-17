@@ -40,13 +40,26 @@ if (isset($_POST['submit'])) {
             exit;
         }
     }
+} else if (isset($_POST['getscroll'])) {
+    if (isset($_SESSION['email_scroll_pos'])) {
+        $scrollPos = $_SESSION['email_scroll_pos'];
+    } else {
+        $scrollPos = 0;
+    }
+
+    header('Content-Type: application/json');
+    echo "{\"scrollPos\": $scrollPos}";
+} else if (isset($_POST['setscroll'])) {
+    $_SESSION['email_scroll_pos'] = $_POST['setscroll'];
 } else {
 
     $view = new stdClass();
     $view->pageTitle = 'Email';
+    $view->scripts = ['/js/email.js'];
 
     if (isset($_POST['reset']) && $_POST['reset'] == 'true') {
         unset($_SESSION['email_answers']);
+        $_SESSION['email_scroll_pos'] = 0;
     }
 
     if (!isset($_SESSION['email_answers'])) {

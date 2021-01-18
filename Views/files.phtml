@@ -2,8 +2,88 @@
 
 </div>
 
-<div class="container">
-    File browser
+<div class="container"></div>
+
+<div class="container bg-light shadow mt-5" id="desktop" style="position: relative">
+    <div class="row" >
+        <div class="col-2">
+            <div class="row">
+                <div class="col-sm-12 py-3">
+                    <a href="email.php">
+                        <div class="card border-0 bg-light" style="width: 70px">
+                            <img class="card-img-top" src="images/email.png" alt="email icon">
+                            <p class="text-center text-reset">EMail</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 py-3">
+                    <a href="webbrowser.php">
+                        <div class="card border-0 bg-light" style="width: 70px">
+                            <img class="card-img-top" src="images/web.png" alt="web icon">
+                            <p class="text-center text-reset">Web</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 py-3">
+                    <a href="files.php">
+                        <div class="card border-0 bg-light" style="width: 70px">
+                            <img class="card-img-top" src="images/files.png" alt="files icon">
+                            <p class="text-center text-reset">Files</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 py-3" id="waste-bin">
+                    <div class="card border-0 bg-light" style="width: 70px">
+                        <img class="card-img-top" src="images/trash.png" alt="email icon">
+                        <p class="text-center text-reset">Waste Bin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-white rounded shadow" id="files-window" style="width: 350px; height: 300px; position: absolute; top: 20px; left: 200px ">
+        <div class="row" id="window-title">
+            <div class="col-12 bg-dark text-light">
+                My Files
+            </div>
+        </div>
+        <div class="row row-cols-3 mt-3">
+            <div class="col" file id="file0">
+                <a href="email.php">
+                    <div class="card border-0 bg-white" style="width: 70px">
+                        <img class="card-img-top" src="images/file.png" alt="email icon">
+                        <p class="text-center text-reset">File1.txt</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col" file id="file1">
+                <a href="email.php">
+                    <div class="card border-0 bg-white" style="width: 70px">
+                        <img class="card-img-top" src="images/file.png" alt="email icon">
+                        <p class="text-center text-reset">File2.txt</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col" file id="file2">
+                <a href="email.php">
+                    <div class="card border-0 bg-white" style="width: 70px">
+                        <img class="card-img-top" src="images/file.png" alt="email icon">
+                        <p class="text-center text-reset">File3.txt</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col" file id="file3">
+                <a href="email.php">
+                    <div class="card border-0 bg-white" style="width: 70px">
+                        <img class="card-img-top" src="images/file.png" alt="email icon">
+                        <p class="text-center text-reset">File4.txt</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php require('template/footer.phtml') ?>
+
+

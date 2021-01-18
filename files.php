@@ -7,8 +7,8 @@ if (isset($_POST['action'])) {
 
 } else {
     $view = new stdClass();
-    $view->pageTitle = 'File Browser';
-    $view->scripts = [];
+    $view->pageTitle = 'File Browsers';
+    $view->scripts = ['/js/files.js'];
 
     include_once 'Views/files.phtml';
 }

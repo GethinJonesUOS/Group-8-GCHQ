@@ -11,11 +11,12 @@ let setupTooltips = function () {
                    });
     });
 
-    $('[url]').mouseover(function () {
+    let urlHints = $('[url]');
+    urlHints.mouseover(function () {
         $('#status').html(($(this).attr('url')));
     });
 
-    $('[url]').mouseout(function () {
+    urlHints.mouseout(function () {
         $('#status').html('&nbsp;');
     });
 }

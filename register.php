@@ -41,6 +41,32 @@ if (isset($_POST['email'], $_POST['password'])) {
     //call to registerValidation method in Users and pass the array
     $view->users = $users->registerValidation($data);
 
+    $emailError = $_POST['emailError'];
+    $passwordError = $_POST['passwordError'];
+    $confirmPasswordError = $_POST['confirmPasswordError'];
+
+    $errorArray = array();
+
+    if (!empty($data['emailError'])) {
+        $errorArray = $data['emailError'];
+    }
+
+    if (!empty($data['emailError'])) {
+        $errorArray = $data['emailError'];
+    }
+    if (!empty($data['passwordError'])) {
+        $errorArray = $data['passwordError'];
+    }
+    if (!empty($data['confirmPasswordError'])) {
+        $errorArray = $data['confirmPasswordError'];
+    }
+
+    if (count($errorArray) > 0) {
+        foreach ($errorArray AS $Error) {
+            echo "<font color='red'><b>".$Error."</font></b><br>";
+        }
+    }
+
 } else {
     $data = [
         'email' => '',
@@ -54,24 +80,26 @@ if (isset($_POST['email'], $_POST['password'])) {
     ];
 }
 
-//Return $data in case of error
-if ($data['emailError']) {
-    echo $data['emailError'];
-} elseif ($data['passwordError']) {
-    echo $data['passwordError'];
-} elseif ($data['confirmPasswordError']) {
-    echo $data['confirmPasswordError'];
-} else {
-    $data = [
-        'email' => '',
-        'password' => '',
-        'firstname' => '',
-        'lastname' => '',
-        'conformPassword' => '',
-        'emailError' => '',
-        'passwordError' => '',
-        'confirmPasswordError' => ''
-    ];
-}
+
+
+////Return $data in case of error
+//if ($data['emailError']) {
+//    echo $data['emailError'];
+//} elseif ($data['passwordError']) {
+//    echo $data['passwordError'];
+//} elseif ($data['confirmPasswordError']) {
+//    echo $data['confirmPasswordError'];
+//} else {
+//    $data = [
+//        'email' => '',
+//        'password' => '',
+//        'firstname' => '',
+//        'lastname' => '',
+//        'conformPassword' => '',
+//        'emailError' => '',
+//        'passwordError' => '',
+//        'confirmPasswordError' => ''
+//    ];
+//}
 
 require_once('Views/register.phtml');

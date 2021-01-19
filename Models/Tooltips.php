@@ -26,7 +26,7 @@ class Tooltips {
 
         $dataSet = [];
         while ($row = $statement->fetch()) {
-            $dataSet[] = new Tooltip($row);
+            $dataSet[$row['hint_id']] = new Tooltip($row);
         }
 
         return $dataSet;

@@ -7,17 +7,17 @@ require_once 'Models/Tooltips.php';
 require_once 'Models/Tests.php';
 
 if (!isLoggedIn()) {
-    //header('location: /index.php');
-    //exit;
+    header('location: /index.php');
+    exit;
 }
 
 if (isset($_POST['action'])) {
     switch ($_POST['action']) {
-        case 'scoreslist':
+        case 'scoreslist': // Get a list of answers provided for each question
             header('Content-Type: application/json');
             echo json_encode($_SESSION['email_answers']);
             break;
-        case 'useranswer':
+        case 'useranswer': // Get the user's answer for a speciefic email
             header('Content-Type: application/json');
             if (isset($_SESSION['email_answers']) && isset($_SESSION['email_answers'][$_POST['id']])) {
                 $answer = $_SESSION['email_answers'][$_POST['id']];
@@ -27,6 +27,38 @@ if (isset($_POST['action'])) {
             echo "{
                 \"answer\": \"$answer\"
             }";
+            break;
+        case 'getheader': // Get the email header
+            $selected = $_POST['id'];
+            $emailsData = new Emails();
+            $selectedEmail = $emailsData->getEmail($selected);
+
+            header('Content-Type: application/json');
+            $subject = $selectedEmail->getSubject();
+            $from = $selectedEmail->getFrom();
+            $fromName = $selectedEmail->getFromName();
+            echo "{
+                \"from\": \"$from\",
+                \"fromName\": \"$fromName\",
+                \"subject\": \"$subject\"
+            }";
+            break;
+        case 'answeremail': // Provide an answer for a uestion
+            $_SESSION['email_answers'][$_POST['id']] = $_POST['answer'];
+
+            $emailsData = new Emails();
+            $emails = $emailsData->getEmails();
+            $emailCount = count($emails);
+            $answerCount = count($_SESSION['email_answers']);
+
+            header('Content-Type: application/json');
+            echo "{
+                    \"emailCount\": \"$emailCount\",
+                    \"answerCount\": \"$answerCount\"
+                }";
+            break;
+        case 'reset': // Reset the user's answers
+            $_SESSION['email_answers'] = [];
             break;
         default:
             echo 'error';
@@ -60,20 +92,6 @@ if (isset($_POST['action'])) {
             exit;
         }
     }
-} else if (isset($_POST['selected'])) {
-    $selected = $_POST['selected'];
-    $emailsData = new Emails();
-    $selectedEmail = $emailsData->getEmail($selected);
-
-    header('Content-Type: application/json');
-    $subject = $selectedEmail->getSubject();
-    $from = $selectedEmail->getFrom();
-    $fromName = $selectedEmail->getFromName();
-    echo "{
-        \"from\": \"$from\",
-        \"fromName\": \"$fromName\",
-        \"subject\": \"$subject\"
-    }";
 } else if (isset($_GET['emailbody'])) {
     $selected = $_GET['emailbody'];
     $emailsData = new Emails();
@@ -93,23 +111,6 @@ if (isset($_POST['action'])) {
     $toolTipsData = $tooltips->getTooltips();
 
     echo $hintGenerator->transform();
-} else if (isset($_POST['answeremail'])) {
-    $_SESSION['email_answers'][$_POST['answeremail']] = $_POST['answer'];
-
-    $emailsData = new Emails();
-    $emails = $emailsData->getEmails();
-    $emailCount = count($emails);
-    $answerCount = count($_SESSION['email_answers']);
-
-    header('Content-Type: application/json');
-    echo "{
-        \"emailCount\": \"$emailCount\",
-        \"answerCount\": \"$answerCount\"
-    }";
-} else if (isset($_POST['reset'])) {
-    if ($_POST['reset'] == 'true') {
-        $_SESSION['email_answers'] = [];
-    }
 } else {
     if (!isset($_SESSION['email_answers'])) {
         $_SESSION['email_answers'] = [];

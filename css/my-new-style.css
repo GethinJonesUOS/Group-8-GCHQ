@@ -18,15 +18,6 @@
     justify-content: center;
     padding-top: 20px;
 }
-.login form label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    background-color: #CE0000;
-    color: #ffffff;
-}
 .login form input[type="password"], .login form input[type="text"] {
     width: 310px;
     height: 50px;
@@ -71,15 +62,6 @@
     flex-wrap: wrap;
     justify-content: center;
     padding-top: 20px;
-}
-.register form label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    background-color: #CE0000;
-    color: #ffffff;
 }
 .register form input[type="password"], .register form input[type="text"] {
     width: 310px;
@@ -297,6 +279,11 @@
 
 .email-card {
     cursor: default;
+}
+
+.invalidFeedback {
+    color: #ff0000;
+    display: block;
 }
 
 /* table layout */

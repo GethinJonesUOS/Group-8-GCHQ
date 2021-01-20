@@ -9,7 +9,7 @@ $view->pageTitle = 'Register';
 $users = new Users();
 
 //If login request submitted
-if (isset($_POST['email'], $_POST['password'])) {
+if (isset($_POST['email'], $_POST['firstname'], $_POST['lastname'], $_POST['password'], $_POST['confirmPassword'])) {
 
     //associative array = abstract data type composed of a collection of (key, value) pairs
     $data = [
@@ -17,10 +17,7 @@ if (isset($_POST['email'], $_POST['password'])) {
         'password' => '',
         'firstname' => '',
         'lastname' => '',
-        'confirmPassword' => '',
-        'emailError' => '',
-        'passwordError' => '',
-        'confirmPasswordError' => ''
+        'confirmPassword' => ''
     ];
 
     //Sanitize post data. Prevent sql injection
@@ -33,9 +30,6 @@ if (isset($_POST['email'], $_POST['password'])) {
         'firstname' => trim($_POST['firstname']),
         'lastname' => trim($_POST['lastname']),
         'confirmPassword' => trim($_POST['confirmPassword']),
-        'emailError' => '',
-        'passwordError' => '',
-        'confirmPasswordError' => ''
     ];
 
     //call to registerValidation method in Users and pass the array
@@ -48,29 +42,6 @@ if (isset($_POST['email'], $_POST['password'])) {
         'firstname' => '',
         'lastname' => '',
         'conformPassword' => '',
-        'emailError' => '',
-        'passwordError' => '',
-        'confirmPasswordError' => ''
-    ];
-}
-
-//Return $data in case of error
-if ($data['emailError']) {
-    echo $data['emailError'];
-} elseif ($data['passwordError']) {
-    echo $data['passwordError'];
-} elseif ($data['confirmPasswordError']) {
-    echo $data['confirmPasswordError'];
-} else {
-    $data = [
-        'email' => '',
-        'password' => '',
-        'firstname' => '',
-        'lastname' => '',
-        'conformPassword' => '',
-        'emailError' => '',
-        'passwordError' => '',
-        'confirmPasswordError' => ''
     ];
 }
 

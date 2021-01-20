@@ -21,46 +21,62 @@ class Users
 
         $passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
 
+        $errors = [
+            'emailError' => '',
+            'firstnameError' => '',
+            'lastnameError' => '',
+            'passwordError' => '',
+            'confirmPasswordError' => ''
+        ];
 
         //Validate email
         if (empty($data['email'])) {
-            $data['emailError'] = 'Please enter email address.';
+            $errors['emailError'] = 'Please enter email address.';
         } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $data['emailError'] = 'Please enter the correct format.';
+            $errors['emailError'] = 'Please enter the correct format.';
         } else {
             //Check if email exist
             if ($this->findUserByEmail($data['email'])) {
-                $data['emailError'] = 'Email already exist.';
+                $errors['emailError'] = 'Email already exist.';
             }
+        }
+
+        //Validate firstname
+        if(empty($data['firstname'])) {
+            $errors['firstnameError'] = 'Please enter your name.';
+        }
+
+        //Validate lastname
+        if(empty($data['lastname'])) {
+            $errors['lastnameError'] = 'Please enter your surname.';
         }
 
         //Validate possword length, numeric values
         if(empty($data['password'])) {
-            $data['passwordError'] = 'Please enter password.';
+            $errors['passwordError'] = 'Please enter password.';
         } elseif (strlen($data['password']) < 6) {
-            $data['passwordError'] = 'Password must be at least 8 characters.';
+            $errors['passwordError'] = 'Password must be at least 8 characters.';
         } elseif (preg_match($passwordValidation, $data['password'])) {         //$passwordValidation <--
-            $data['passwordError'] = 'Password must have at least one numeric value';
+            $errors['passwordError'] = 'Password must have at least one numeric value';
         }
 
         //Validate confirm password
         if (empty($data['confirmPassword'])) {
-            $data['confirmPasswordError'] = 'Please enter password';
-        } else {
-            if ($data['password'] != $data['confirmPassword']) {
-                $data['confirmPasswordError'] = 'Passwords do not match, please try again.';
-            }
-
-            // Ensuring there are no errors
-            if (empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
-
-                //Hash password
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-                $this->register($data);
-            }
+            $errors['confirmPasswordError'] = 'Please enter password';
+        } elseif ($data['password'] != $data['confirmPassword']) {
+            $errors['confirmPasswordError'] = 'Passwords do not match, please try again.';
         }
-        return $data;
+
+        // Ensuring there are no errors
+        if (empty($errors['emailError']) && empty($errors['passwordError']) && empty($errors['confirmPasswordError'])) {
+
+            //Hash password
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+            $this->register($data);
+        } else {
+            return $errors;
+        }
     }
 
     /* If validation passed, user will be poassed to register method */
@@ -86,27 +102,59 @@ class Users
     /* Validating login details */
     public function loginValidation($data) {
 
+        $errors = [
+            'emailError' => '',
+            'passwordError' => ''
+        ];
+
         //Validate email
         if (empty($data['email'])) {
-            $data['emailError'] = 'Please enter email.';
+            $errors['emailError'] = 'Please enter email.';
         }
 
         //Validate password
         if (empty($data['password'])) {
-            $data['emailError'] = 'Please enter password.';
+            $errors['passwordError'] = 'Please enter password.';
         }
 
         //Check if all errors are empty
-        if(empty($data['emailError']) && empty($data['passwordError'])) {
+        if(empty($errors['emailError']) && empty($errors['passwordError'])) {
             //$loggedInUser = $this->login($data['email'], $data['password']);
-            $this->login($data);
-        }else {
-            return  $data;
+
+            $user = $this->login($data);
+
+            if (empty($user)) {
+                $user = null;
+                $errors['emailError'] = 'Email do not exist. Please try again!';
+                return $errors;
+            } else {
+                //Verifying password
+                $hashedPassword = $user->getPassword();
+
+                if (password_verify($data['password'], $hashedPassword)) {
+                    $this->createUserSession($user);
+                    header('location: /index.php');
+
+                } else {
+                    print_r($errors);
+                    //$user = null;
+                    $errors['passwordError'] = 'Email or password is incorrect. Please try again.';
+                    print_r($errors);
+                    return $errors;
+                }
+            }
+        } else {
+            return  $errors;
         }
     }
 
     /* Login method */
     public function login($data) {
+
+        $errors = [
+            'emailError' => '',
+            'passwordError' => ''
+        ];
 
         $sqlQuery = ("SELECT * FROM users WHERE email = :email");
 
@@ -127,23 +175,9 @@ class Users
 
         if ($row > 0) {
             $user = new User($row);
-
-            //Verifying password
-            $hashedPassword = $user->getPassword();
-
-            if (password_verify($data['password'], $hashedPassword)) {
-                $this->createUserSession($user);
-                header('location: /index.php');
-
-            } else {
-                $user = null;
-                $data['passwordError'] = 'Email or password is incorrect. Please try again.';
-            }
-        } else {
-            echo 'Email do not exist. Please try again!';
-            $data['emailError'] = 'Email do not exist. Please try again!';
         }
-        return $data;
+
+        return $user;
     }
 
     /* Get user information */
@@ -165,7 +199,7 @@ class Users
         }
 
         $row = $statement->fetch();
-        $user[] = new User($row);                                                  //SHOULD BE: LotPageData
+        $user[] = new User($row);
 
         return $user; //TODO: This function needs to return an object, not an array
     }

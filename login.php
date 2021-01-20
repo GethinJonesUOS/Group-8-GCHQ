@@ -14,9 +14,7 @@ if (isset($_POST['email'], $_POST['password'])) {
     $data = [
         //'title' => 'Login page',
         'email' => '',
-        'password' => '',
-        'emailError' => '',
-        'passwordError' => ''
+        'password' => ''
     ];
 
     //Sanitize post data. Prevent sql injection
@@ -25,9 +23,7 @@ if (isset($_POST['email'], $_POST['password'])) {
     //trimming data
     $data = [
         'email' => trim($_POST['email']),
-        'password' => trim($_POST['password']),
-        'emailError' => '',
-        'passwordError' => ''
+        'password' => trim($_POST['password'])
     ];
 
 
@@ -40,26 +36,6 @@ if (isset($_POST['email'], $_POST['password'])) {
         'password' => '',
         'emailError' => '',
         'passwordError' => ''
-    ];
-}
-
-//Return $data in case of error
-if ($data['emailError']) {
-    echo $data['emailError'];
-} elseif ($data['passwordError']) {
-    echo $data['passwordError'];
-} else {
-    $data = [
-        'email' => '',
-        'password' => '',
-        'firstname' => '',
-        'lastname' => '',
-        'address' => '',
-        'postcode' => '',
-        'conformPassword' => '',
-        'emailError' => '',
-        'passwordError' => '',
-        'confirmPasswordError' => ''
     ];
 }
 

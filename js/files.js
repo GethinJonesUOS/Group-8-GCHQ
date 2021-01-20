@@ -55,10 +55,28 @@ let buildWindow = function(options) {
 
     nextWindowId++;
     activeWindowCount++;
+
+    return window;
 }
 
 let closeWindow = function() {
     $(this).parents('.window').remove();
+}
+
+let openFile = function(fileName) {
+    let window = buildWindow({
+        title: fileName,
+        id: nextWindowId,
+        left: '600px',
+        addContent: function(pane, filename) {
+            pane.load('files.php?action=filecontent&filename=' + fileName, function() {
+
+            });
+        }
+    });
+
+    window.tooltip({trigger: 'manual', boundary: '#desktop', html: true, placement: 'left', title: 'bar'});
+    window.tooltip("show");
 }
 
 $("#waste-bin").droppable({
@@ -82,6 +100,8 @@ buildWindow({
                 let fileName = data.files[i].fileName;
                 let colID = nextWindowId + '-' + i;
                 fileGrid.append('<div class="col" file="' + fileName + '" id="' + colID + '" title="' + data.tooltips[i] + '"></div>');
+                fileGrid.tooltip({trigger: 'manual', boundary: '#desktop', html: true, placement: 'left', title: 'foo'});
+                fileGrid.tooltip("show");
 
                 let col = fileGrid.find('#' + colID + '');
                 col.html('<div class="card border-0 bg-white" style="width: 70px"></div>');
@@ -118,18 +138,11 @@ buildWindow({
                 });
 
                 col.dblclick(function() {
-                    buildWindow({
-                        title: fileName,
-                        id: nextWindowId,
-                        left: '600px',
-                        addContent: function(pane, filename) {
-                            pane.load('files.php?action=filecontent&filename=' + fileName, function() {
-
-                            });
-                        }
-                    });
+                    openFile(fileName);
                 });
             }
+
+            openFile(data.files[0].fileName);
         });
     }
 });

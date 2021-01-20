@@ -1,4 +1,5 @@
 let activeEmailID = -1;
+let activeGuideStep = 0;
 
 let setupTooltips = function () {
     [].slice.call(document.querySelectorAll('[hint]')).map(function (tooltipTriggerEl) {
@@ -10,17 +11,83 @@ let setupTooltips = function () {
                    });
     });
 
-    $('[url]').mouseover(function () {
+    let urlHints = $('[url]');
+    urlHints.mouseover(function () {
         $('#status').html(($(this).attr('url')));
     });
 
-    $('[url]').mouseout(function () {
+    urlHints.mouseout(function () {
         $('#status').html('&nbsp;');
     });
 }
 
+let showGuideTip2 = function() {
+    let guideStep = $('#email-content');
+    guideStep.tooltip({html: true,
+        toggle: 'tooltip',
+        placement: 'left',
+        trigger: 'manual',
+        sanitize: false,
+    });
+    guideStep.tooltip("show");
+    $('#guide-2-next').click(function () {
+        guideStep.tooltip("hide");
+        showGuideTip3();
+    });
+    activeGuideStep = 2;
+}
+
+let showGuideTip3 = function() {
+    let guideStep = $('#answer-form');
+    guideStep.tooltip({html: true,
+        toggle: 'tooltip',
+        placement: 'top',
+        trigger: 'manual',
+        sanitize: false,
+    });
+    guideStep.tooltip("show");
+    $('#guide-3-next').click(function () {
+        guideStep.tooltip("hide");
+        showGuideTip4();
+    });
+    activeGuideStep = 3;
+}
+
+let showGuideTip4 = function() {
+    let guideStep = $('#answer-submit');
+    guideStep.tooltip({html: true,
+        toggle: 'tooltip',
+        placement: 'bottom',
+        trigger: 'manual',
+        sanitize: false,
+    });
+    guideStep.tooltip("show");
+    $('#guide-4-next').click(function () {
+        guideStep.tooltip("hide");
+        activeGuideStep = 0;
+    });
+    activeGuideStep = 4;
+}
+
 $(document).ready(function() {
     setupTooltips();
+
+    let guideStep1 = $('[guide-step="1"]');
+    guideStep1.tooltip({html: true,
+        toggle: 'tooltip',
+        placement: 'right',
+        boundary: '#email-client',
+        trigger: 'manual',
+        sanitize: false,
+    });
+    guideStep1.tooltip("show");
+    $('#guide-1-next').click(function () {
+        guideStep1.tooltip("hide");
+        showGuideTip2();
+    });
+    activeGuideStep = 1;
+
+
 
     $('#email-count').text($('.email-card').length);
 
@@ -40,6 +107,12 @@ $(document).ready(function() {
     });
 
     $('.email-card').click(function () {
+        let guideStep1 = $('[guide-step="1"]');
+        if (activeGuideStep == 1) {
+            guideStep1.tooltip("hide");
+            showGuideTip2();
+        }
+
         let newEmailID = $(this).attr('email-id');
 
         $('#email-body').load('email.php?emailbody='.concat(newEmailID),
@@ -47,7 +120,7 @@ $(document).ready(function() {
                 setupTooltips();
             });
 
-        $.post('email.php', {selected: newEmailID}).done(function (data) {
+        $.post('email.php', {action: 'getheader', id: newEmailID}).done(function (data) {
             $('#selected-from-name').html(data['fromName']);
             $('#selected-from').html(data['from']);
             $('#selected-subject').html(data['subject']);
@@ -87,6 +160,12 @@ $(document).ready(function() {
     });
 
     $('input[name=answer]:radio').click(function () {
+        let guideStep = $('#answer-form');
+        if (activeGuideStep == 3) {
+            guideStep.tooltip("hide");
+            showGuideTip4();
+        }
+
         $('#answer-form').submit();
     });
 
@@ -94,7 +173,7 @@ $(document).ready(function() {
         event.preventDefault();
         let selectedNode = $('input[name=answer]:radio:checked');
         let selectedAnswer = selectedNode.val();
-        $.post('email.php', {answeremail: activeEmailID, answer: selectedAnswer}).done(function (data) {
+        $.post('email.php', {action: 'answeremail', id: activeEmailID, answer: selectedAnswer}).done(function (data) {
             let bgColorClassAdd;
             let bgColorClassRem;
 
@@ -123,7 +202,10 @@ $(document).ready(function() {
             cardHeader.addClass(bgColorClassAdd);
 
             if (data.emailCount == data.answerCount) {
-                $('#answer-submit').prop('disabled', false);
+                let answerSubmit = $('#answer-submit');
+                answerSubmit.prop('disabled', false);
+                answerSubmit.removeClass('btn-secondary');
+                answerSubmit.addClass('btn-success');
             }
             $('#answer-count').text(data.answerCount);
             $('#email-count').text(data.emailCount);
@@ -131,13 +213,17 @@ $(document).ready(function() {
     });
 
     $('#answer-reset').click(function() {
-        $.post('email.php', {reset: 'true'}).done(function (data) {
+        $.post('email.php', {action: 'reset'}).done(function (data) {
             let arr = $('.email-card').find('.card-header');
             $.map(arr, function (n, i) {
                 $(n).removeClass('bg-danger');
                 $(n).removeClass('bg-success');
             });
-            $('#answer-submit').prop('disabled', true);
+
+            let answerSubmit = $('#answer-submit');
+            answerSubmit.prop('disabled', true);
+            answerSubmit.removeClass('btn-success');
+            answerSubmit.addClass('btn-secondary');
             $('#answer-count').text(0);
             $('#email-count').text(arr.length);
 

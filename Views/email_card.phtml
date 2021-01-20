@@ -1,5 +1,9 @@
-
-<div class="card mt-1 mx-0 email-card" email-id="<?php echo $email->getID() ?>">
+<?php if ($index == 0) : ?>
+<div class="card mt-1 mx-0 email-card" email-id="<?php echo $email->getID() ?>" data-bs-toggle="tooltip" data-bs-placement="right" guide-step="1"
+     title="<h4>Step 1</h3><p>Select an email to review</p>">
+<?php else : ?>
+    <div class="card mt-1 mx-0 email-card" email-id="<?php echo $email->getID() ?>">
+<?php endif ?>
     <div class='card-header text-truncate'>
         <p class="my-0"><?php echo substr($email->getFromName(), 0, 100) ?></p>
     </div>

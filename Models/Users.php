@@ -19,7 +19,8 @@ class Users
     /* Validating registrant details */
     public function registerValidation($data) {
 
-        $passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
+        //$passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
+        $passwordValidation = "/.*/";
 
         $errors = [
             'emailError' => '',
@@ -53,11 +54,12 @@ class Users
 
         //Validate possword length, numeric values
         if(empty($data['password'])) {
-            $errors['passwordError'] = 'Please enter password.';
+            $errors['passwordError'] = 'Please enter password.';d
         } elseif (strlen($data['password']) < 6) {
             $errors['passwordError'] = 'Password must be at least 8 characters.';
         } elseif (preg_match($passwordValidation, $data['password'])) {         //$passwordValidation <--
             $errors['passwordError'] = 'Password must have at least one numeric value';
+
         }
 
         //Validate confirm password

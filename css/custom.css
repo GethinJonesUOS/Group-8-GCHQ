@@ -45,3 +45,15 @@
 .btn-dark {
     background-color: #353535 !important
 }
+
+.bg-danger {
+    background-color: #f87d7d !important
+}
+
+.bg-success {
+    background-color: #a3e795 !important
+}
+
+.bg-info {
+    background-color: #8ad5ee !important
+}

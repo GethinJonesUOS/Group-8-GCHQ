@@ -34,14 +34,13 @@ if (isset($_POST['email'], $_POST['firstname'], $_POST['lastname'], $_POST['pass
 
     //call to registerValidation method in Users and pass the array
     $view->users = $users->registerValidation($data);
-
 } else {
     $data = [
         'email' => '',
         'password' => '',
         'firstname' => '',
         'lastname' => '',
-        'conformPassword' => '',
+        'conformPassword' => ''
     ];
 }
 

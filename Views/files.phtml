@@ -6,7 +6,7 @@
 
 <div class="container bg-light shadow mt-5" id="desktop" style="position: relative">
     <div class="row" >
-        <div class="col-2">
+        <div class="col-1">
             <div class="row">
                 <div class="col-sm-12 py-3">
                     <a href="email.php">
@@ -43,7 +43,27 @@
     </div>
 </div>
 
-<div id="test"></div>
+<div class="modal" id="scores-modal" tabindex="-1" style="z-index: 0" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">How did you do?</h5>
+            </div>
+            <div class="modal-body">
+                <ul id="scores-list"></ul>
+                <h2 class="text-center" id="final-score"></h2>
+            </div>
+            <div class="modal-footer">
+                <form class="form-inline" id="submit-form" action="/files.php" method="post">
+                    <input type="hidden" id="form-score" name="score" value="0">
+                    <input type="hidden" id="form-action" name="action" value="submitscore">
+                    <button type="button" id="try-again" class="btn btn-info" id="try-again">Try Again</button>
+                    <button type="submit" id="submit-final" class="btn btn-info">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php require('template/footer.phtml') ?>
 

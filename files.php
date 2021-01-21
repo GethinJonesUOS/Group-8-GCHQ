@@ -3,6 +3,7 @@
 require_once 'Models/Users.php';
 require_once 'Models/Tooltips.php';
 require_once 'Models/Files.php';
+require_once 'Models/Tests.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -33,6 +34,18 @@ if (isset($_GET['action'])) {
             header('Content-Type: application/json');
             echo '{"files": [' . implode(',', $filesArr) . '], "tooltips": [' . implode(',', $tooltipsArr) . ']}';
             break;
+        case 'submitscore':
+            if (isset($_POST['score'])) {
+                $tests = new Tests();
+                $result = ['test_name' => 'Files Test', 'result' => $_POST['score']];
+                $tests->addResluts($result);
+                header('location: /profile.php');
+            } else {
+                header('location: /');
+            }
+            break;
+        default:
+            echo 'Error: Bad request';
     }
 } else {
     $view = new stdClass();

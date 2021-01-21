@@ -8,6 +8,7 @@ class File {
     protected $_isDangerous;
     protected $_action;
     protected $_tooltip;
+    protected $_icon;
 
     /**
      * file constructor.
@@ -21,6 +22,7 @@ class File {
         $this->_isDangerous = $row['is_dangerous'];
         $this->_action = $row['action'];
         $this->_tooltip = $row['tooltip_id'];
+        $this->_icon = $row['icon'];
     }
 
     /**
@@ -65,6 +67,10 @@ class File {
         return $this->_tooltip;
     }
 
+    public function getIcon() : string {
+        return $this->_icon;
+    }
+
     /**
      * @return string
      */
@@ -74,8 +80,9 @@ class File {
         $content = $this->_content;
         $isDangerous = $this->_isDangerous;
         $action = $this->_action;
+        $icon = $this->_icon;
 
-        return "{\"id\": \"$id\", \"fileName\": \"$fileName\"}";
+        return "{\"id\": \"$id\", \"fileName\": \"$fileName\", \"icon\": \"$icon\", \"action\": \"$action\"}";
     }
 
 }

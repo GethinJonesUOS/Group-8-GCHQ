@@ -127,15 +127,17 @@ let buildWindow = function(options) {
     $('#desktop').append('' +
         '<div class="container rounded shadow border border-dark window" ' +
         'style="background-color: ' + bgColor + '; width: ' + width + '; height: ' + height + '; position: absolute; top: ' + top + '; left: ' + left + '" sourcefile="' + options.title + '">' +
-        '<div name="window-title-bar" class="row"><div name="window-title" id="' + windowTitleIdStr + '" class="col-10 px-2 py-1 bg-dark text-light text-truncate"></div><div class="col-2 bg-dark text-light"><span name="close" id="window-close-' + options.id + '" class="float-right py-1" window-id="' + options.id + '"><img src="images/close-window.png"></span></div></div>' +
+        '<div name="window-title-bar" class="row"><div name="window-title" id="' + windowTitleIdStr + '" class="col-12 px-2 py-1 bg-dark text-light text-truncate"><img src="images/close-window.png" name="close" id="window-close-' + options.id + '" class="float-right py-1" window-id="' + options.id + '"></div></div>' +
         '<div name="pane"></div></div>');
 
     let window = $('[sourcefile="' + options.title + '"]');
     let title = window.find('[name="window-title"]');
     let pane = window.find('[name="pane"]');
-    let close = window.find('[name="close"]');
 
-    title.text(options.title);
+    title.html('<span>' + options.title + '</span>');
+
+    title.append('<img src="images/close-window.png" name="close" id="window-close-' + options.id + '" class="float-right py-1" window-id="' + options.id + '">');
+    let close = window.find('[name="close"]');
     close.click(function() {
         closeWindow(window, onClose);
     });

@@ -19,9 +19,7 @@ class Users
     /* Validating registrant details */
     public function registerValidation($data) {
 
-        //$passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
-        $passwordValidation = "/.*/";
-
+        $passwordValidation = "/^([^A-Z]*|[^a-z]*|[^\d]*)$/i";
         $errors = [
             'emailError' => '',
             'firstnameError' => '',
@@ -54,12 +52,11 @@ class Users
 
         //Validate possword length, numeric values
         if(empty($data['password'])) {
-            $errors['passwordError'] = 'Please enter password.';d
-        } elseif (strlen($data['password']) < 6) {
+            $errors['passwordError'] = 'Please enter password.';
+        } elseif (strlen($data['password']) < 8) {
             $errors['passwordError'] = 'Password must be at least 8 characters.';
-        } elseif (preg_match($passwordValidation, $data['password'])) {         //$passwordValidation <--
-            $errors['passwordError'] = 'Password must have at least one numeric value';
-
+        } elseif (preg_match($passwordValidation, $data['password'])) {
+            $errors['passwordError'] = 'Password must contain: numeric value & capital letter.';
         }
 
         //Validate confirm password
@@ -138,10 +135,8 @@ class Users
                     header('location: /index.php');
 
                 } else {
-                    print_r($errors);
-                    //$user = null;
+                    $user = null;
                     $errors['passwordError'] = 'Email or password is incorrect. Please try again.';
-                    print_r($errors);
                     return $errors;
                 }
             }
@@ -182,6 +177,180 @@ class Users
         return $user;
     }
 
+    /* Change email validation */
+    public function changeEmailValidation($data) {
+
+        $returnData = [
+            'emailError' => '',
+            'passwordError' => '',
+            'successMsg' => ''
+        ];
+
+        //Validate email
+        if (empty($data['email'])) {
+            $returnData['emailError'] = 'Please enter email.';
+        }
+
+        if ($this->findUserByEmail($data['email'])) {
+            $returnData['emailError'] = 'Email already exists.';
+        }
+
+        //Validate password
+        if (empty($data['password'])) {
+            $returnData['passwordError'] = 'Please enter password.';
+        }
+
+        //Check if all errors are empty
+        if (empty($returnData['emailError']) && empty($returnData['passwordError'])) {
+
+            if ($this->passwordAuthentication($data['password'])) {
+                $this->changeEmail($data);
+                $returnData['successMsg'] = 'Email successfully changed.';
+            } else {
+                $returnData['passwordError'] = 'Wrong password. Please try again.';
+            }
+        }
+        return $returnData;
+    }
+
+    /* Change user email */
+    public function changeEmail($data) {
+
+        $sqlQuery = ("UPDATE users SET email = :email WHERE id = :user_id");
+
+        //Execute the query
+        try
+        {
+            $statement = $this->_dbHandle->prepare($sqlQuery); // prepare a PDO statement
+            $statement->bindParam(':email', $data['email']);
+            $statement->bindParam(':user_id', $_SESSION['user_id']);
+            $statement->execute(); // execute the PDO statement
+
+            $_SESSION['email'] = $data['email'];
+        }
+        catch (PDOException $e)
+        {
+            //If there is a PDO exception, throw a standard exception
+            throw new Exception('Database query error');
+        }
+    }
+
+    /* Change password validation */
+    public function changePasswordValidation($data) {
+
+        $returnData = [
+            'newPasswordError' => '',
+            'newPasswordConfirmationError' => '',
+            'oldPasswordError' => '',
+            'passSuccessMsg' => ''
+        ];
+
+        $passwordValidation = "/^([^A-Z]*|[^a-z]*|[^\d]*)$/i";
+
+        if (empty($data['newPassword'])) {
+            $returnData['newPasswordError'] = 'Please enter your new password.';
+        } elseif (strlen($data['password']) < 8) {
+            $returnData['newPasswordError'] = 'Password must be at least 8 characters.';
+        } elseif (preg_match($passwordValidation, $data['password'])) {
+            $returnData['newPasswordError'] = 'Password must contain: numeric value & capital letter.';
+        }
+
+        if (empty($data['confirmNewPassword'])) {
+            $returnData['newPasswordConfirmationError'] = 'Please confirm your password.';
+        } elseif ($data['newPassword'] != $data['confirmNewPassword']) {
+            $returnData['newPasswordConfirmationError'] = 'Passwords do not match, please try again.';
+        }
+
+        if (empty($data['oldPassword'])) {
+            $returnData['oldPasswordError'] = 'Please enter your old password.';
+        } elseif (!$this->passwordAuthentication($data['oldPassword'])) {
+            $returnData['oldPasswordError'] = 'Wrong password. Please try again';
+        }
+
+        //Check if all errors are empty
+        if (empty($returnData['newPasswordError']) && empty($returnData['newPasswordConfirmationError']) && empty($returnData['oldPasswordError'])) {
+
+            $password = password_hash($data['newPassword'], PASSWORD_DEFAULT);
+
+            $this->changePassword($password);
+            $returnData['PassSuccessMsg'] = 'Password successfully changed.';
+
+        }
+        return $returnData;
+    }
+
+    /* Change password */
+    public function changePassword($password) {
+
+        $sqlQuery = ("UPDATE users SET password = :password WHERE id = :user_id");
+
+        //Execute the query
+        try
+        {
+            $statement = $this->_dbHandle->prepare($sqlQuery); // prepare a PDO statement
+            $statement->bindParam(':password', $password);
+            $statement->bindParam(':user_id', $_SESSION['user_id']);
+            $statement->execute(); // execute the PDO statement
+        }
+        catch (PDOException $e)
+        {
+            //If there is a PDO exception, throw a standard exception
+            throw new Exception('Database query error');
+        }
+    }
+
+    /* Delete account validation */
+    public function deleteAccountValidation($data) {
+
+        $returnData = [
+            'replyError' => '',
+            'passError' => ''
+        ];
+
+        if (empty($data['reply'])) {
+            $returnData['replyError'] = 'Please tell us why you decided to delete your account.';
+        } elseif (strlen($data['reply']) > 150 || strlen($data['reply']) < 10) {
+            $returnData['replyError'] = 'Your reply can not be less than 10 nor exceed 150 characters.';
+        }
+
+        if (empty($data['pass'])) {
+            $returnData['passError'] = 'Please enter your password.';
+        } elseif (!$this->passwordAuthentication($data['pass'])) {
+            $returnData['passError'] = 'Wrong password. Please try again';
+        }
+
+        print_r($returnData);
+
+        //Check if all errors are empty
+        if (empty($returnData['replyError']) && empty($returnData['passError'])) {
+
+            $this->deleteAccount();
+            header('location: /login.php');
+
+        } else {
+            return $returnData;
+        }
+    }
+
+    /* Change password*/
+    public function deleteAccount() {
+
+        $sqlQuery = ("DELETE FROM users WHERE id = :user_id");
+
+        //Execute the query
+        try
+        {
+            $statement = $this->_dbHandle->prepare($sqlQuery); // prepare a PDO statement
+            $statement->bindParam(':user_id', $_SESSION['user_id']);
+            $statement->execute(); // execute the PDO statement
+        }
+        catch (PDOException $e)
+        {
+            //If there is a PDO exception, throw a standard exception
+            throw new Exception('Database query error');
+        }
+    }
+
     /* Get user information */
     public function getUserInfo($user_id) {
 
@@ -218,6 +387,28 @@ class Users
         if ($statement->fetch() > 0) {
             return true;
         } else {
+            return false;
+        }
+    }
+
+    /* authintication */
+    public function passwordAuthentication($password) {
+
+        //Prepare statement
+        $sqlQuery = 'SELECT * FROM users WHERE email = :_email';
+        $statement = $this->_dbHandle->prepare($sqlQuery); // prepare a PDO statement
+        $statement->bindParam(':_email', $_SESSION['email']);
+        $statement->execute(); // execute the PDO statement
+
+        $row = $statement->fetch();
+        $user = new User($row);
+
+        $hashedPassword = $user->getPassword();
+
+        if (password_verify($password, $hashedPassword)) {
+            return true;
+        } else {
+            $user = null;
             return false;
         }
     }

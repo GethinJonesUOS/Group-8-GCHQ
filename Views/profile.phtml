@@ -16,6 +16,60 @@
             ?>
             </tbody>
         </table>
+        <hr class="my-4">
+
+        <h3> Settings: </h3>
+        <div class="container-fluid">
+            <div class="row">
+<!--                <div class="changeDetails">-->
+<!--                    <div class="row">-->
+                        <div class="card-body col-md-4>">
+                            <h5>Change Email: </h5>
+                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                <label type="text"><?php echo $_SESSION['email']; ?></label>
+                                <input type="text" name="email-emailChange" placeholder="New Email">
+                                <input type="password" name="password-emailChange" placeholder="Password">
+                                <input type="submit" name="changeEmail">
+                                <span class="invalidFeedback">
+                                    <?php if(isset($view->returnData['emailError'])) { echo $view->returnData['emailError'];} ?>
+                                    <?php if (isset($view->returnData['passwordError'])) { echo $view->returnData['passwordError'];} ?>
+                                    <?php if (isset($view->returnData['successMsg'])) { echo $view->returnData['successMsg'];} ?>
+                                </span>
+                            </form>
+                        </div>
+                        <div class="card-body col-md-4>">
+                            <h5>Change Password: </h5>
+                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                <input type="password" name="newPassword-passwordChange" placeholder="New Password">
+                                <input type="password" name="confirmNewPassword-passwordChange" placeholder="Confirm New Password">
+                                <input type="password" name="oldPassword-passwordChange" placeholder="Old Password">
+                                <input type="submit" name="changePassword">
+                                <span class="invalidFeedback">
+                                    <?php if(isset($view->returnData['newPasswordError'])) { echo $view->returnData['newPasswordError'];} ?>
+                                    <?php if (isset($view->returnData['newPasswordConfirmationError'])) { echo $view->returnData['newPasswordConfirmationError'];} ?>
+                                    <?php if (isset($view->returnData['oldPasswordError'])) { echo $view->returnData['oldPasswordError'];} ?>
+                                    <?php if (isset($view->returnData['PassSuccessMsg'])) { echo $view->returnData['PassSuccessMsg'];} ?>
+                                </span>
+                            </form>
+                        </div>
+                        <div class="card-body col-md-4>">
+                            <h5>Delete Account: </h5>
+                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                <label type="text">Reason behind deletion?</label>
+                                <input type="text" name="reply" placeholder="Type your answer here">
+                                <input type="password" name="pass" placeholder="Password">
+                                <input type="submit" name="deleteAccount">
+                                <span class="invalidFeedback">
+                                    <?php if(isset($view->returnData['replyError'])) { echo $view->returnData['replyError'];} ?>
+                                    <?php if(isset($view->returnData['passError'])) { echo $view->returnData['passError'];} ?>
+                                </span>
+                            </form>
+                        </div>
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+        <hr class="my-4">
 
         <h3> Test results: </h3>
         <table class="table table-hover">

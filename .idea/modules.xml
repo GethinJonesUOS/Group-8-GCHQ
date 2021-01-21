@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Group-8-GCHQ.iml" filepath="$PROJECT_DIR$/.idea/Group-8-GCHQ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GCHQ.iml" filepath="$PROJECT_DIR$/.idea/GCHQ.iml" />
     </modules>
   </component>
 </project>

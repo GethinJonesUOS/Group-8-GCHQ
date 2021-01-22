@@ -337,12 +337,12 @@ buildWindow({
     title: 'Files',
     id: nextWindowId,
     width: '400px',
-    height: '400px',
+    height: '350px',
     top: '50px',
     left: '150px',
     addContent: function(pane, filename) {
         $.post('files.php', {action: 'getfiles'}).done(function (data) {
-            pane.append('<div class="row row-cols-4 mt-3 file-grid"></div>');
+            pane.append('<div class="row row-cols-4 mt-3 px-2 file-grid"></div>');
             let fileGrid = pane.find('.file-grid');
             for (i in data.files) {
                 let file = data.files[i];
@@ -356,7 +356,7 @@ buildWindow({
                 fileGrid.tooltip("show");
 
                 let col = fileGrid.find('#' + colID + '');
-                col.html('<div class="card border-0 bg-white" style="width: 70px"></div>');
+                col.html('<div class="card border-0 bg-transparent" style="width: 70px"></div>');
 
                 let card = col.find('.card');
                 card.html('<img class="card-img-top" src="images/' + icon + '" alt="email icon"><p class="text-center text-reset">File4.txt</p>');

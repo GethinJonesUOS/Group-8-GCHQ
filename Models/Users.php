@@ -319,8 +319,6 @@ class Users
             $returnData['passError'] = 'Wrong password. Please try again';
         }
 
-        print_r($returnData);
-
         //Check if all errors are empty
         if (empty($returnData['replyError']) && empty($returnData['passError'])) {
 

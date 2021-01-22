@@ -35,74 +35,60 @@
         </div>
     </div>
 
+    <h3>Please answer which of the above pages raising the following concerns: </h3>
 
-    <hr class="my-4">
+    <form action="webbrowser.php" method="post" class="padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card-body col-md-3">
+                    <h6>Unreliable Address Bar</h6>
+                    <input list="browsers" name="browser1" required>
+                    <datalist id="browsers">
+                        <option value="LinkedIn">
+                        </option><option value="PayPal">
+                        </option><option value="Currys.co.uk/Mac">
+                        </option><option value="Currys.co.uk/checkout">
+                        </option></datalist>
+                </div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
+                <div class="card-body col-md-3">
+                    <h6>Unreliable Content</h6>
+                    <input list="browsers" name="browser2" required>
+                    <datalist id="browsers">
+                        <option value="LinkedIn">
+                        </option><option value="PayPal">
+                        </option><option value="Currys.co.uk/Mac">
+                        </option><option value="Currys.co.uk/checkout">
+                        </option></datalist>
+                </div>
 
-                <form action="webbrowser.php" method="post">
+                <div class="card-body col-md-3">
+                    <h6>Suspicious Deal</h6>
+                    <input list="browsers" name="browser3" required>
+                    <datalist id="browsers">
+                        <option value="LinkedIn">
+                        </option><option value="PayPal">
+                        </option><option value="Currys.co.uk/Mac">
+                        </option><option value="Currys.co.uk/checkout">
+                        </option></datalist>
+                </div>
 
-                    <h3>Please answer which of the above pages raising the following concerns: </h3>
+                <div class="card-body col-md-3>">
+                    <h6>Alarming Payment Method</h6>
+                    <input list="browsers" name="browser4" required>
+                    <datalist id="browsers">
+                        <option value="LinkedIn">
+                        </option><option value="PayPal">
+                        </option><option value="Currys.co.uk/Mac">
+                        </option><option value="Currys.co.uk/checkout">
+                        </option></datalist>
+                </div>
 
-                    <div class="col-md-6>">
-                        <h6>Unreliable Address Bar</h6>
-                    </div>
-                    <div class="col-md-6>">
-                        <input list="browsers" name="browser1" required>
-                        <datalist id="browsers">
-                            <option value="LinkedIn">
-                            </option><option value="PayPal">
-                            </option><option value="Currys.co.uk/Mac">
-                            </option><option value="Currys.co.uk/checkout">
-                            </option></datalist>
-                    </div>
+                <input type="submit" name="submit">
 
-                    <div class="col-md-6>">
-                        <h6>Unreliable Content</h6>
-                    </div>
-                    <div class="col-md-6>">
-                        <input list="browsers" name="browser2" required>
-                        <datalist id="browsers">
-                            <option value="LinkedIn">
-                            </option><option value="PayPal">
-                            </option><option value="Currys.co.uk/Mac">
-                            </option><option value="Currys.co.uk/checkout">
-                            </option></datalist>
-                    </div>
-
-                    <div class="col-md-4>">
-                        <h6>Suspicious Deal</h6>
-                    </div>
-                    <div class="col-md-4>">
-                        <input list="browsers" name="browser3" required>
-                        <datalist id="browsers">
-                            <option value="LinkedIn">
-                            </option><option value="PayPal">
-                            </option><option value="Currys.co.uk/Mac">
-                            </option><option value="Currys.co.uk/checkout">
-                            </option></datalist>
-                    </div>
-
-                    <div class="col-md-4>">
-                        <h6>Alarming Payment Method</h6>
-                    </div>
-                    <div class="col-md-4>">
-                        <input list="browsers" name="browser4" required>
-                        <datalist id="browsers">
-                            <option value="LinkedIn">
-                            </option><option value="PayPal">
-                            </option><option value="Currys.co.uk/Mac">
-                            </option><option value="Currys.co.uk/checkout">
-                            </option></datalist>
-                    </div>
-
-                    <input type="submit">
-                </form>
             </div>
         </div>
-    </div>
+    </form>
 
     <script>
         function changeImg(url) {

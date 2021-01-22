@@ -8,6 +8,10 @@ $view->pageTitle = 'Webbrowser';
 
 $tests = new Tests();
 
+$view = new stdClass();
+$view->pageTitle = 'Email';
+$view->scripts = ['/js/webbrowser.js'];
+
 //If login request submitted
 if (isset($_POST['browser1'], $_POST['browser2'], $_POST['browser3'], $_POST['browser4'])) {
 

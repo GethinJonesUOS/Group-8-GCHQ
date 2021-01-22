@@ -3,7 +3,7 @@
 require_once 'Views/template/session_helper.php';
 
 if (!isLoggedIn()) {
-    header('location: /index.php');
+    header('location: /login.php');
     exit;
 }
 

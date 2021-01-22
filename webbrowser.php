@@ -12,6 +12,11 @@ $view = new stdClass();
 $view->pageTitle = 'Email';
 $view->scripts = ['/js/webbrowser.js'];
 
+if (!isLoggedIn()) {
+    header('location: /login.php');
+    exit;
+}
+
 //If login request submitted
 if (isset($_POST['browser1'], $_POST['browser2'], $_POST['browser3'], $_POST['browser4'])) {
 

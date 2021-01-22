@@ -7,7 +7,7 @@ require_once 'Models/Tooltips.php';
 require_once 'Models/Tests.php';
 
 if (!isLoggedIn()) {
-    header('location: /index.php');
+    header('location: /login.php');
     exit;
 }
 

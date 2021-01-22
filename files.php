@@ -5,6 +5,11 @@ require_once 'Models/Tooltips.php';
 require_once 'Models/Files.php';
 require_once 'Models/Tests.php';
 
+if (!isLoggedIn()) {
+    header('location: /login.php');
+    exit;
+}
+
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'filecontent':

@@ -98,7 +98,7 @@ let buildWindow = function(options) {
         width = options.width;
     }
 
-    let height = '300px';
+    let height = '275px';
     if (options.hasOwnProperty('height')) {
         height = options.height;
     }
@@ -125,10 +125,10 @@ let buildWindow = function(options) {
 
     let windowTitleIdStr = 'window-title-' + options.id;
     $('#desktop').append('' +
-        '<div class="container rounded shadow border border-dark window" ' +
-        'style="background-color: ' + bgColor + '; width: ' + width + '; height: ' + height + '; position: absolute; top: ' + top + '; left: ' + left + '" sourcefile="' + options.title + '">' +
-        '<div name="window-title-bar" class="row"><div name="window-title" id="' + windowTitleIdStr + '" class="col-12 px-2 py-1 bg-dark text-light text-truncate"><img src="images/close-window.png" name="close" id="window-close-' + options.id + '" class="float-right py-1" window-id="' + options.id + '"></div></div>' +
-        '<div name="pane"></div></div>');
+        '<div class="container rounded shadow border border-dark window p-0" ' +
+        'style="box-sizing: content-box; background-color: ' + bgColor + '; width: ' + width + '; height: ' + height + '; position: absolute; top: ' + top + '; left: ' + left + '" sourcefile="' + options.title + '">' +
+        '<div name="window-title" id="' + windowTitleIdStr + '" class="col-12 px-2 py-1 bg-dark text-light text-truncate"><img src="images/close-window.png" name="close" id="window-close-' + options.id + '" class="float-right py-1" window-id="' + options.id + '"></div>' +
+        '<div class="p-0 m-0" name="pane"></div></div>');
 
     let window = $('[sourcefile="' + options.title + '"]');
     let title = window.find('[name="window-title"]');
@@ -148,7 +148,7 @@ let buildWindow = function(options) {
 
     window.draggable({
         containment: '#desktop',
-        handle: '[name="window-title-bar"]'
+        handle: '[name="window-title"]'
     });
 
     window.mousedown(function() {

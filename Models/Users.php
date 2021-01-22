@@ -249,9 +249,9 @@ class Users
 
         if (empty($data['newPassword'])) {
             $returnData['newPasswordError'] = 'Please enter your new password.';
-        } elseif (strlen($data['password']) < 8) {
+        } elseif (strlen($data['oldPassword']) < 8) {
             $returnData['newPasswordError'] = 'Password must be at least 8 characters.';
-        } elseif (preg_match($passwordValidation, $data['password'])) {
+        } elseif (preg_match($passwordValidation, $data['newPassword'])) {
             $returnData['newPasswordError'] = 'Password must contain: numeric value & capital letter.';
         }
 

@@ -313,15 +313,28 @@ $("#waste-bin").droppable({
 });
 
 let showStep3 = function() {
+    let killDragAnimation = false;
     let wasteBin = $('#waste-bin');
     wasteBin.tooltip({trigger: 'manual', boundary: '#desktop', html: true, placement: 'right', sanitize: false, title: '<h3>Step 3</h3><p>Any files that you think are potentially dangerous to have on your computer can be deleted by dragging the icon to the the Waste Bin.</p><button class="btn btn-info" name="tutorial-3">Next</button><button class="btn btn-link text-reset" name="tutorial-3" skip>skip tutorial</button>'});
     wasteBin.tooltip('show');
     $('[name="tutorial-3"]').click(function() {
+        killDragAnimation = true;
         wasteBin.tooltip('hide');
         if ($(this).attr('skip') === undefined) {
             showStep4();
         }
     });
+    let options = { to: '#waste-bin', className: "ui-effects-transfer" };
+    $( "#1-0" ).effect( "transfer", options, 2500, callback );
+
+    function callback() {
+        setTimeout(function() {
+            $( "#effect" ).removeAttr( "style" ).hide().fadeIn();
+            if (!killDragAnimation) {
+                $("#1-0").effect("transfer", options, 2500, callback);
+            }
+        }, 500 );
+    };
 }
 
 let showStep4 = function() {

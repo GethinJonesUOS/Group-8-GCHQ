@@ -5,11 +5,13 @@ require_once 'Models/Tooltips.php';
 require_once 'Models/Files.php';
 require_once 'Models/Tests.php';
 
+// Redirect to login page if request is received without logged in session
 if (!isLoggedIn()) {
     header('location: /login.php');
     exit;
 }
 
+// Requests with a GET action parameter
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'filecontent':
@@ -20,9 +22,10 @@ if (isset($_GET['action'])) {
             }
             break;
     }
+    // Requests with a POST action parameter
 } else if (isset($_POST['action'])) {
     switch ($_POST['action']) {
-        case 'getfiles':
+        case 'getfiles': // Return a json object containing Files data
             $filesDataSet = new Files();
             $files = $filesDataSet->getFilesList();
 
@@ -39,7 +42,7 @@ if (isset($_GET['action'])) {
             header('Content-Type: application/json');
             echo '{"files": [' . implode(',', $filesArr) . '], "tooltips": [' . implode(',', $tooltipsArr) . ']}';
             break;
-        case 'submitscore':
+        case 'submitscore': // Submit the user's score to the database and redirect to the profile page
             if (isset($_POST['score'])) {
                 $tests = new Tests();
                 $result = ['test_name' => 'Files Test', 'result' => $_POST['score']];
@@ -53,6 +56,7 @@ if (isset($_GET['action'])) {
             echo 'Error: Bad request';
     }
 } else {
+    // If no parameters are provided, show the Files view.
     $view = new stdClass();
     $view->pageTitle = 'File Browsers';
     $view->scripts = ['/js/files.js'];

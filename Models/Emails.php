@@ -18,7 +18,7 @@ class Emails {
     /**
      * Get an array of EMail objects from the database.
      *
-     * @return array
+     * @return array An array of Email objects
      */
     public function getEmails() : array {
         $sqlQuery = 'SELECT * FROM emails';
@@ -32,6 +32,12 @@ class Emails {
         return $dataSet;
     }
 
+    /**
+     * Get an email object from the database, specified by its ID.
+     *
+     * @param $id table ID of the email record.
+     * @return Email Email object from the database.
+     */
     public function getEmail($id) : Email {
         $sqlQuery = 'SELECT * FROM emails WHERE id = :id';
         $statement = $this->_dbHandle->prepare($sqlQuery);

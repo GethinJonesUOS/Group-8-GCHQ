@@ -17,7 +17,9 @@ class Tooltips {
     }
 
     /**
-     * @return array
+     * Get an array of all tooltips.
+     *
+     * @return array An array of Tooltip objects.s
      */
     public function getTooltips() : array {
         $sqlQuery = 'SELECT * FROM tooltips';

@@ -5,7 +5,6 @@ class File {
     protected $_id;
     protected $_fileName;
     protected $_content;
-    protected $_isDangerous;
     protected $_action;
     protected $_tooltip;
     protected $_icon;
@@ -19,66 +18,74 @@ class File {
         $this->_id = $row['id'];
         $this->_fileName = $row['filename'];
         $this->_content = $row['content'];
-        $this->_isDangerous = $row['is_dangerous'];
         $this->_action = $row['action'];
         $this->_tooltip = $row['tooltip_id'];
         $this->_icon = $row['icon'];
     }
 
     /**
-     * @return mixed
+     * Get the File's table id.
+     *
+     * @return int The file's table id.
      */
-    public function getId() {
+    public function getId() : int {
         return $this->_id;
     }
 
     /**
-     * @return mixed
+     * A number corresponding to the action the should take when
+     * the file is activated.
+     *
+     * @return int The UI action associated to the file.
      */
-    public function getAction() {
+    public function getAction() : int {
         return $this->_action;
     }
 
     /**
-     * @return string
+     * Get the contents of the file.
+     *
+     * @return string The file's contents.
      */
     public function getContent() : string {
         return $this->_content;
     }
 
     /**
-     * @return string
+     * Get the name of the file.
+     *
+     * @return string The name of the file.
      */
     public function getFileName() : string {
         return $this->_fileName;
     }
 
     /**
-     * @return mixed
+     * The table ID of the file's tooltip
+     *
+     * @return int The file's tooltip ID.
      */
-    public function getIsDangerous() : bool {
-        return $this->_isDangerous;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTooltipID() {
+    public function getTooltipID() : int {
         return $this->_tooltip;
     }
 
+    /**
+     * The file name of the file's icon.
+     *
+     * @return string The name of the icon image file.
+     */
     public function getIcon() : string {
         return $this->_icon;
     }
 
     /**
-     * @return string
+     * Return the object a JSON string. Excludes content.
+     *
+     * @return string The object as a JSON string.
      */
     public function json_encode() : string {
         $id = $this->_id;
         $fileName = $this->_fileName;
-        $content = $this->_content;
-        $isDangerous = $this->_isDangerous;
         $action = $this->_action;
         $icon = $this->_icon;
 

@@ -33,10 +33,10 @@ class Files {
     }
 
     /**
-     * Get a single file from the database
+     * Get a single file from the database.
      *
-     * @param $fileName
-     * @return File
+     * @param $fileName string The filename of the File record to retrieve
+     * @return File A file object.
      */
     public function getFileFromName($fileName) : File {
         $sqlQuery = 'SELECT * FROM files where filename = :filename';

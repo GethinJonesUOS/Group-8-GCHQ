@@ -12,6 +12,7 @@ let ratDeleted = false;
 let ransomwareDeleted = false;
 let adwareDeleted = false;
 let confidentialDeleted = 0;
+let safeFilesDeleted = 0;
 
 let desktop = $('#desktop');
 
@@ -31,48 +32,55 @@ let onSubmit = function() {
     let score = 0;
 
     if (!ratOpened) {
-        scoresList.append('<li>+10 - The wages.xlsx file contained a macro that would have located your personal information and transmitted it to an unknown party. Well done for not opening it.</li>');
+        scoresList.append('<li><span class="text-success">+10</span> - The wages.xlsx file contained a macro that would have located your personal information and transmitted it to an unknown party. Well done for not opening it.</li>');
         score += 10;
     } else {
-        scoresList.append('<li>+0 - Oh dear! You opened the wages.xlsx file. Unfortunately it contained a macro that  located your personal information and transmitted it to an unknown party.</li>');
+        scoresList.append('<li><span class="text-danger">+0</span> - Oh dear! You opened the wages.xlsx file. Unfortunately it contained a macro that  located your personal information and transmitted it to an unknown party.</li>');
     }
 
     if (!adwareOpened) {
-        scoresList.append('<li>+10 - The hot.jpg.exe file may have looked like it would open image but was in fact an executable that would have installed intrusive adWare. Well done for not opening it.</li>');
+        scoresList.append('<li><span class="text-success">+10</span> - The hot.jpg.exe file may have looked like it would open image but was in fact an executable that would have installed intrusive adWare. Well done for not opening it.</li>');
         score += 10;
     } else {
-        scoresList.append('<li>+0 - Guess the temptation to see that &apos;image&apos; file was too great. Sadly it wasn&apos;t an image at all and was actually an executabe that is now flooding your screen with spam.</li>');
+        scoresList.append('<li><span class="text-danger">+0</span> - Guess the temptation to see that &apos;image&apos; file was too great. Sadly it wasn&apos;t an image at all and was actually an executabe that is now flooding your screen with spam.</li>');
     }
 
     if (!ransomwareOpened) {
-        scoresList.append('<li>+10 - The schedule.pif file contained ransomware that would have encrypted your files. Well done for not opening it.</li>');
+        scoresList.append('<li><span class="text-success">+10</span> - The schedule.pif file contained ransomware that would have encrypted your files. Well done for not opening it.</li>');
         score += 10;
     } else {
-        scoresList.append('<li>+0 - Whoops! It seems you managed to initiate some ransomware which has encrypted all of your personal files.</li>');
+        scoresList.append('<li><span class="text-danger">+0</span> - Whoops! It seems you managed to initiate some ransomware which has encrypted all of your personal files.</li>');
     }
 
     if (!ratOpened && ratDeleted) {
-        scoresList.append('<li>+10 - The wages.xlsx file contained a macro that would have located your personal information and transmitted it to an unknown party. Well done for deleting it.</li>');
+        scoresList.append('<li><span class="text-success">+10</span> - The wages.xlsx file contained a macro that would have located your personal information and transmitted it to an unknown party. Well done for deleting it.</li>');
         score += 10;
     }
     if (!ransomwareOpened && ransomwareDeleted) {
-        scoresList.append('<li>+10 - The schedule.pif file contained ransomware that would have encrypted your files. Well done for deleting it.</li>');
+        scoresList.append('<li><span class="text-success">+10</span> - The schedule.pif file contained ransomware that would have encrypted your files. Well done for deleting it.</li>');
         score += 10;
     }
     if (!adwareOpened && adwareDeleted) {
-        scoresList.append('<li>+10 - The hot.jpg.exe file may have looked like it would open image but was infact an executable that would have installed intrusive adWare. Well done for deleting it.</li>');
+        scoresList.append('<li><span class="text-success">+10</span> - The hot.jpg.exe file may have looked like it would open image but was infact an executable that would have installed intrusive adWare. Well done for deleting it.</li>');
         score += 10;
     }
 
     if (confidentialDeleted === 1) {
-        scoresList.append('<li>+10 - You deleted one of the unprotected files containing personal information but, there&apos;s still one more you didn&apos;t get.</li>');
+        scoresList.append('<li><span class="text-success">+10</span> - You deleted one of the unprotected files containing personal information but, there&apos;s still one more you didn&apos;t get.</li>');
         score += 10;
     } else if (confidentialDeleted === 2) {
-        scoresList.append('<li>+20 - You deleted both of the unprotected files containing personal information. Well done!</li>');
+        scoresList.append('<li><span class="text-success">+20</span> - You deleted both of the unprotected files containing personal information. Well done!</li>');
         score += 20;
     }
 
+    if (safeFilesDeleted > 0) {
+        let pointsDeducted = 5 * safeFilesDeleted;
+        scoresList.append('<li><span class="text-danger">-' + pointsDeducted + '</span> - ' + safeFilesDeleted + ' of the files you deleted were in fact completely harmless.</li>');
+        score -= pointsDeducted;
+    }
+
     $('#final-score').html(score + '/' + 80)
+    score = score < 0 ? 0 : score;
     $('#form-score').val(Math.round(score / 80 * 100).toString());
 
     myModal.show();
@@ -509,6 +517,9 @@ $(document).ready(function() {
         drop: function(event, ui) {
             let action = ui.draggable.attr('action');
             switch (action) {
+                case "1":
+                    safeFilesDeleted++;
+                    break;
                 case "2":
                     ratDeleted = true;
                     break;

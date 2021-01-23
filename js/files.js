@@ -351,14 +351,16 @@ let showStep3 = function() {
             showStep4();
         }
     });
+
+    let time = 2000;
     let options = { to: '#waste-bin', className: "ui-effects-transfer" };
-    $( "#1-0" ).effect( "transfer", options, 2500, callback );
+    $( "#1-0" ).effect( "transfer", options, time, callback );
 
     function callback() {
         setTimeout(function() {
             $( "#effect" ).removeAttr( "style" ).hide().fadeIn();
             if (!killDragAnimation) {
-                $("#1-0").effect("transfer", options, 2500, callback);
+                $("#1-0").effect("transfer", options, time, callback);
             }
         }, 500 );
     };

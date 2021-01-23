@@ -35,21 +35,24 @@ let onSubmit = function() {
         scoresList.append('<li><span class="text-success">+10</span> - The wages.xlsx file contained a macro that would have located your personal information and transmitted it to an unknown party. Well done for not opening it.</li>');
         score += 10;
     } else {
-        scoresList.append('<li><span class="text-danger">+0</span> - Oh dear! You opened the wages.xlsx file. Unfortunately it contained a macro that  located your personal information and transmitted it to an unknown party.</li>');
+        scoresList.append('<li><span class="text-danger">-10</span> - Oh dear! You opened the wages.xlsx file. Unfortunately it contained a macro that  located your personal information and transmitted it to an unknown party.</li>');
+        score -= 10;
     }
 
     if (!adwareOpened) {
         scoresList.append('<li><span class="text-success">+10</span> - The hot.jpg.exe file may have looked like it would open image but was in fact an executable that would have installed intrusive adWare. Well done for not opening it.</li>');
         score += 10;
     } else {
-        scoresList.append('<li><span class="text-danger">+0</span> - Guess the temptation to see that &apos;image&apos; file was too great. Sadly it wasn&apos;t an image at all and was actually an executabe that is now flooding your screen with spam.</li>');
+        scoresList.append('<li><span class="text-danger">-10</span> - Guess the temptation to see that &apos;image&apos; file was too great. Sadly it wasn&apos;t an image at all and was actually an executabe that is now flooding your screen with spam.</li>');
+        score -= 10;
     }
 
     if (!ransomwareOpened) {
         scoresList.append('<li><span class="text-success">+10</span> - The schedule.pif file contained ransomware that would have encrypted your files. Well done for not opening it.</li>');
         score += 10;
     } else {
-        scoresList.append('<li><span class="text-danger">+0</span> - Whoops! It seems you managed to initiate some ransomware which has encrypted all of your personal files.</li>');
+        scoresList.append('<li><span class="text-danger">-10</span> - Whoops! It seems you managed to initiate some ransomware which has encrypted all of your personal files.</li>');
+        score -= 10;
     }
 
     if (!ratOpened && ratDeleted) {

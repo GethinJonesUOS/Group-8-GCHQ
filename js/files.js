@@ -98,7 +98,7 @@ let buildWindow = function(options) {
         width = options.width;
     }
 
-    let height = '300px';
+    let height = '275px';
     if (options.hasOwnProperty('height')) {
         height = options.height;
     }
@@ -125,10 +125,10 @@ let buildWindow = function(options) {
 
     let windowTitleIdStr = 'window-title-' + options.id;
     $('#desktop').append('' +
-        '<div class="container rounded shadow border border-dark window" ' +
-        'style="background-color: ' + bgColor + '; width: ' + width + '; height: ' + height + '; position: absolute; top: ' + top + '; left: ' + left + '" sourcefile="' + options.title + '">' +
-        '<div name="window-title-bar" class="row"><div name="window-title" id="' + windowTitleIdStr + '" class="col-12 px-2 py-1 bg-dark text-light text-truncate"><img src="images/close-window.png" name="close" id="window-close-' + options.id + '" class="float-right py-1" window-id="' + options.id + '"></div></div>' +
-        '<div name="pane"></div></div>');
+        '<div class="container rounded shadow border border-dark window p-0" ' +
+        'style="box-sizing: content-box; background-color: ' + bgColor + '; width: ' + width + '; height: ' + height + '; position: absolute; top: ' + top + '; left: ' + left + '" sourcefile="' + options.title + '">' +
+        '<div name="window-title" id="' + windowTitleIdStr + '" class="col-12 px-2 py-1 bg-dark text-light text-truncate"><img src="images/close-window.png" name="close" id="window-close-' + options.id + '" class="float-right py-1" window-id="' + options.id + '"></div>' +
+        '<div class="p-0 m-0" name="pane"></div></div>');
 
     let window = $('[sourcefile="' + options.title + '"]');
     let title = window.find('[name="window-title"]');
@@ -148,7 +148,7 @@ let buildWindow = function(options) {
 
     window.draggable({
         containment: '#desktop',
-        handle: '[name="window-title-bar"]'
+        handle: '[name="window-title"]'
     });
 
     window.mousedown(function() {
@@ -313,15 +313,28 @@ $("#waste-bin").droppable({
 });
 
 let showStep3 = function() {
+    let killDragAnimation = false;
     let wasteBin = $('#waste-bin');
     wasteBin.tooltip({trigger: 'manual', boundary: '#desktop', html: true, placement: 'right', sanitize: false, title: '<h3>Step 3</h3><p>Any files that you think are potentially dangerous to have on your computer can be deleted by dragging the icon to the the Waste Bin.</p><button class="btn btn-info" name="tutorial-3">Next</button><button class="btn btn-link text-reset" name="tutorial-3" skip>skip tutorial</button>'});
     wasteBin.tooltip('show');
     $('[name="tutorial-3"]').click(function() {
+        killDragAnimation = true;
         wasteBin.tooltip('hide');
         if ($(this).attr('skip') === undefined) {
             showStep4();
         }
     });
+    let options = { to: '#waste-bin', className: "ui-effects-transfer" };
+    $( "#1-0" ).effect( "transfer", options, 2500, callback );
+
+    function callback() {
+        setTimeout(function() {
+            $( "#effect" ).removeAttr( "style" ).hide().fadeIn();
+            if (!killDragAnimation) {
+                $("#1-0").effect("transfer", options, 2500, callback);
+            }
+        }, 500 );
+    };
 }
 
 let showStep4 = function() {
@@ -337,12 +350,12 @@ buildWindow({
     title: 'Files',
     id: nextWindowId,
     width: '400px',
-    height: '400px',
+    height: '350px',
     top: '50px',
     left: '150px',
     addContent: function(pane, filename) {
         $.post('files.php', {action: 'getfiles'}).done(function (data) {
-            pane.append('<div class="row row-cols-4 mt-3 file-grid"></div>');
+            pane.append('<div class="row row-cols-4 mt-3 px-2 file-grid"></div>');
             let fileGrid = pane.find('.file-grid');
             for (i in data.files) {
                 let file = data.files[i];
@@ -356,7 +369,7 @@ buildWindow({
                 fileGrid.tooltip("show");
 
                 let col = fileGrid.find('#' + colID + '');
-                col.html('<div class="card border-0 bg-white" style="width: 70px"></div>');
+                col.html('<div class="card border-0 bg-transparent" style="width: 70px"></div>');
 
                 let card = col.find('.card');
                 card.html('<img class="card-img-top" src="images/' + icon + '" alt="email icon"><p class="text-center text-reset">File4.txt</p>');

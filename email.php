@@ -11,13 +11,14 @@ if (!isLoggedIn()) {
     exit;
 }
 
+// POST request with action parameter
 if (isset($_POST['action'])) {
     switch ($_POST['action']) {
         case 'scoreslist': // Get a list of answers provided for each question
             header('Content-Type: application/json');
             echo json_encode($_SESSION['email_answers']);
             break;
-        case 'useranswer': // Get the user's answer for a speciefic email
+        case 'useranswer': // Get the user's answer for a specific email
             header('Content-Type: application/json');
             if (isset($_SESSION['email_answers']) && isset($_SESSION['email_answers'][$_POST['id']])) {
                 $answer = $_SESSION['email_answers'][$_POST['id']];
@@ -63,6 +64,8 @@ if (isset($_POST['action'])) {
         default:
             echo 'error';
     }
+    // Submit score to the database and redirect to the profile page.
+    // TODO: Should be a post action.
 } else if (isset($_POST['submit'])) {
     if ($_POST['submit'] == true) {
         $answerCount = count($_SESSION['email_answers']);
@@ -92,6 +95,8 @@ if (isset($_POST['action'])) {
             exit;
         }
     }
+    // Get the contents of an email bdy from the database
+    //TODO: Should be a GET action.
 } else if (isset($_GET['emailbody'])) {
     $selected = $_GET['emailbody'];
     $emailsData = new Emails();
@@ -111,6 +116,7 @@ if (isset($_POST['action'])) {
     $toolTipsData = $tooltips->getTooltips();
 
     echo $hintGenerator->transform();
+    // If no parameters are provided, return the view
 } else {
     if (!isset($_SESSION['email_answers'])) {
         $_SESSION['email_answers'] = [];
@@ -118,6 +124,8 @@ if (isset($_POST['action'])) {
 
     $view = new stdClass();
     $view->pageTitle = 'Email';
+
+    // Push email.js file into the view footer
     $view->scripts = ['/js/email.js'];
 
     $emailsData = new Emails();

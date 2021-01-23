@@ -9,7 +9,7 @@ class HintGenerator {
     /**
      * HintGenerator constructor.
      *
-     * @param $text
+     * @param $text The text to add hints to.
      */
     public function __construct($text) {
         $this->_text = $text;
@@ -17,7 +17,9 @@ class HintGenerator {
     }
 
     /**
-     * @return string
+     * Apply hint tooltips to elements marked with hint attributes.
+     *
+     * @return string The transformed text.
      */
     public function transform() : string {
         $hintPos = 0;
@@ -46,8 +48,12 @@ class HintGenerator {
     }
 
     /**
-     * @param $id
-     * @param $text
+     * Add a tooltip definition.
+     *
+     * All definitions must be supplied before calling transform.
+     *
+     * @param $id   The tooltip's id.
+     * @param $text The tooltip's definition.
      */
     public function addTooltip($id, $text) {
         $this->_tooltips[$id] = $text;

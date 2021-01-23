@@ -19,18 +19,18 @@ class Tooltip {
     /**
      * Get the ID of the tooltip.
      *
-     * @return mixed
+     * @return int The tooltip's ID.
      */
-    public function getId() {
+    public function getId() : int {
         return $this->_tooltipId;
     }
 
     /**
      * Get the text of the tooltip.
      *
-     * @return mixed
+     * @return string The tooltip's text.
      */
-    public function getText() {
+    public function getText() : string {
         return $this->_text;
     }
 }

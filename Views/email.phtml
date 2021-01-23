@@ -34,6 +34,8 @@
     <div class="row">
         <div class="col col-sm-4 p-0" id="email-list">
             <?php
+                // Create a card for each of the emails in the database.
+                // TODO: Create API end point so these can be loaded dynamically
                 $index = 0;
                 foreach ($view->emails as $email) {
                     include 'Views/email_card.phtml';

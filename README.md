@@ -1,5 +1,5 @@
 # UoS Hack Camp 2021 - Group 8
-## Introducation
+## Introduction
 Project X is an interactive learning tool designed to assist people in learning about online learning tool designed to educate users about online threats aimed at stealing their information.
 
 ## Requirements

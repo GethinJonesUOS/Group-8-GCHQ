@@ -187,9 +187,9 @@ INSERT INTO emails (id, `from`, from_name, subject, body, isPhishing) VALUES (8,
 <p class="x_content" style="font-size: 16px; color: rgb(0, 0, 0) !important;" data-ogsc="">Thanks<br>Student Finance England</p>
 <img src="images/emails/studentfinancefooter1.png" width="650" height="100"><p/> <img src="images/emails/studentfinancefooter2.png" width="650" height="100">', 0);
 
-INSERT INTO hc21_8.files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (1, 'bank_details.txt', '<p>Sort code: 11-11-11</p><p>account: 12345678</p><p>card: 0123 4567 8912 3456 expiry: 04/22</p>', 1, '5', 14, 'txt.png');
-INSERT INTO hc21_8.files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (2, 'hot.jpg.exe', '', 1, '4', 13, 'jpg.png');
-INSERT INTO hc21_8.files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (3, 'passwords.txt', '<table>
+INSERT INTO files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (1, 'bank_details.txt', '<p>Sort code: 11-11-11</p><p>account: 12345678</p><p>card: 0123 4567 8912 3456 expiry: 04/22</p>', 1, '5', 14, 'txt.png');
+INSERT INTO files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (2, 'hot.jpg.exe', '', 1, '4', 13, 'jpg.png');
+INSERT INTO files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (3, 'passwords.txt', '<table>
 	<tr>
 	<td>Facebook</td><td>iLoveDogs</td>
 	</tr>
@@ -206,12 +206,12 @@ INSERT INTO hc21_8.files (id, filename, content, is_dangerous, action, tooltip_i
 	<td>Online Banking</td><td>yaycats</td>
 	</tr>
 </table>', 1, '5', 14, 'txt.png');
-INSERT INTO hc21_8.files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (4, 'README.txt', '<p>Many types of computer files can be harmful to your computer.</p>
+INSERT INTO files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (4, 'README.txt', '<p>Many types of computer files can be harmful to your computer.</p>
 <p>Your Anti Virus software will detect most harmful files but should be used as the last line of defense. The best protection is to understand the risks and threats so you can avoid them.</p>', 0, '1', 10, 'txt.png');
-INSERT INTO hc21_8.files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (5, 'schedule.pif', '', 1, '3', 12, 'noicon.png');
-INSERT INTO hc21_8.files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (6, 'vacation1.jpg', '<img class="img-fluid m-0 p-0" src="images/vacation1.jpg" alt="vacation photo 1">', 0, '1', 15, 'jpg.png');
-INSERT INTO hc21_8.files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (7, 'vacation2.jpg', '<img class="img-fluid" src="images/vacation2.jpg" alt="vacation photo 1">', 0, '1', 15, 'jpg.png');
-INSERT INTO hc21_8.files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (8, 'wages.xlsx', '<table>
+INSERT INTO files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (5, 'schedule.pif', '', 1, '3', 12, 'noicon.png');
+INSERT INTO files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (6, 'vacation1.jpg', '<img class="img-fluid m-0 p-0" src="images/vacation1.jpg" alt="vacation photo 1">', 0, '1', 15, 'jpg.png');
+INSERT INTO files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (7, 'vacation2.jpg', '<img class="img-fluid" src="images/vacation2.jpg" alt="vacation photo 1">', 0, '1', 15, 'jpg.png');
+INSERT INTO files (id, filename, content, is_dangerous, action, tooltip_id, icon) VALUES (8, 'wages.xlsx', '<table>
 	<tr>
 	<td>John</td><td>&pound;29,000</td>
 	</tr>

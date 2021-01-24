@@ -68,8 +68,10 @@ let onSubmit = function() {
         score += 10;
     }
 
-    if (confidentialDeleted === 1) {
-        scoresList.append('<li><span class="text-success">+10</span> - You deleted one of the unprotected files containing personal information but, there&apos;s still one more you didn&apos;t get.</li>');
+    if (confidentialDeleted === 0) {
+        scoresList.append('<li><span class="text-danger">+0</span> - Those unprotected text files containing sensitive information aren&apos;t very secure. Are you sure you want to keep those lying around?</li>');
+    } else if (confidentialDeleted === 1) {
+        scoresList.append('<li><span class="text-warning">+10</span> - You deleted one of the unprotected files containing personal information but, there&apos;s still one more you didn&apos;t get.</li>');
         score += 10;
     } else if (confidentialDeleted === 2) {
         scoresList.append('<li><span class="text-success">+20</span> - You deleted both of the unprotected files containing personal information. Well done!</li>');

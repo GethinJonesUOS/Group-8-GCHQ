@@ -1,5 +1,6 @@
 let activeEmailID = -1;
 let activeGuideStep = 0;
+let skipTutorial = false;
 
 /**
  * Selects all elements flagged for showing hints and applies hint tooltip settings.
@@ -39,9 +40,9 @@ let showGuideTip1 = function() {
         sanitize: false,
     });
     guideStep1.tooltip("show");
-    $('#guide-1-next').click(function () {
+    $('[name="tutorial-1"]').click(function () {
         guideStep1.tooltip("hide");
-        showGuideTip2();
+        skipTutorial = true;
     });
     activeGuideStep = 1;
 }
@@ -50,19 +51,24 @@ let showGuideTip1 = function() {
  * Show tutorial step 2 tooltip.
  */
 let showGuideTip2 = function() {
-    let guideStep = $('#email-content');
-    guideStep.tooltip({
-        "html": true,
-        "toggle": 'tooltip',
-        "placement": 'left',
-        "trigger": 'manual',
-        "sanitize": false
-    });
-    guideStep.tooltip("show");
-    $('#guide-2-next').click(function () {
-        guideStep.tooltip("hide");
-        showGuideTip3();
-    });
+    if (!skipTutorial) {
+        let guideStep = $('#email-content');
+        guideStep.tooltip({
+            "html": true,
+            "toggle": 'tooltip',
+            "placement": 'left',
+            "trigger": 'manual',
+            "sanitize": false
+        });
+        guideStep.tooltip("show");
+        $('[name="tutorial-2"]').click(function () {
+            guideStep.tooltip("hide");
+            if ($(this).attr('skip') !== undefined) {
+                skipTutorial = true;
+            }
+            showGuideTip3();
+        });
+    }
     activeGuideStep = 2;
 }
 
@@ -70,19 +76,24 @@ let showGuideTip2 = function() {
  * Show tutorial step 3 tooltip.
  */
 let showGuideTip3 = function() {
-    let guideStep = $('#answer-form');
-    guideStep.tooltip({
-        "html": true,
-        "toggle": 'tooltip',
-        "placement": 'top',
-        "trigger": 'manual',
-        "sanitize": false
-    });
-    guideStep.tooltip("show");
-    $('#guide-3-next').click(function () {
-        guideStep.tooltip("hide");
-        showGuideTip4();
-    });
+    if (!skipTutorial) {
+        let guideStep = $('#answer-form');
+        guideStep.tooltip({
+            "html": true,
+            "toggle": 'tooltip',
+            "placement": 'top',
+            "trigger": 'manual',
+            "sanitize": false
+        });
+        guideStep.tooltip("show");
+        $('[name="tutorial-3"]').click(function () {
+            guideStep.tooltip("hide");
+            if ($(this).attr('skip') !== undefined) {
+                skipTutorial = true;
+            }
+            showGuideTip4();
+        });
+    }
     activeGuideStep = 3;
 }
 
@@ -90,19 +101,21 @@ let showGuideTip3 = function() {
  * Show tutorial step 4 tooltip.
  */
 let showGuideTip4 = function() {
-    let guideStep = $('#answer-submit');
-    guideStep.tooltip({
-        "html": true,
-        "toggle": 'tooltip',
-        "placement": 'bottom',
-        "trigger": 'manual',
-        "sanitize": false
-    });
-    guideStep.tooltip("show");
-    $('#guide-4-next').click(function () {
-        guideStep.tooltip("hide");
-        activeGuideStep = 0;
-    });
+    if (!skipTutorial) {
+        let guideStep = $('#answer-submit');
+        guideStep.tooltip({
+            "html": true,
+            "toggle": 'tooltip',
+            "placement": 'bottom',
+            "trigger": 'manual',
+            "sanitize": false
+        });
+        guideStep.tooltip("show");
+        $('#guide-4-next').click(function () {
+            guideStep.tooltip("hide");
+            activeGuideStep = 0;
+        });
+    }
     activeGuideStep = 4;
 }
 

@@ -12,12 +12,13 @@ $view = new stdClass();
 $view->pageTitle = 'Email';
 $view->scripts = ['/js/webbrowser.js'];
 
+//if session terminated and user is no longer logged in will be redirected to the login page
 if (!isLoggedIn()) {
     header('location: /login.php');
     exit;
 }
 
-//If login request submitted
+//If test results submitted
 if (isset($_POST['browser1'], $_POST['browser2'], $_POST['browser3'], $_POST['browser4'])) {
 
     $result = 0;
@@ -41,8 +42,9 @@ if (isset($_POST['browser1'], $_POST['browser2'], $_POST['browser3'], $_POST['br
         'result' => $result
     ];
 
-    //call to registerValidation method in Users and pass the array
-    $view->tests = $tests->addResluts($data);
+    //call to addResults method in Tests and pass the array
+    $view->tests = $tests->addResults($data);
+    header('location: /profile.php');
 
 } else {
     $data = [

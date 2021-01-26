@@ -46,7 +46,7 @@ if (isset($_GET['action'])) {
             if (isset($_POST['score'])) {
                 $tests = new Tests();
                 $result = ['test_name' => 'Files Test', 'result' => $_POST['score']];
-                $tests->addResluts($result);
+                $tests->addResults($result);
                 header('location: /profile.php');
             } else {
                 header('location: /');

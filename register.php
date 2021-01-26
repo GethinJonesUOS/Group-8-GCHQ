@@ -8,7 +8,7 @@ $view->pageTitle = 'Register';
 
 $users = new Users();
 
-//If login request submitted
+//If register form submitted
 if (isset($_POST['email'], $_POST['firstname'], $_POST['lastname'], $_POST['password'], $_POST['confirmPassword'])) {
 
     //associative array = abstract data type composed of a collection of (key, value) pairs

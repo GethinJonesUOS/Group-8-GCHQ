@@ -7,19 +7,37 @@ require_once 'Models/User.php';
 class Users
 {
 
+    /**
+     *Instantiating variables
+     * @var PDO
+     * @var database
+     */
     protected $_dbHandle, $_dbInstance;
 
-
+    /**
+     * Costructor function class Users
+     *
+     */
     public function __construct()
     {
         $this->_dbInstance = Database::getInstance();
         $this->_dbHandle = $this->_dbInstance->getDbConnection();
     }
 
-    /* Validating registrant details */
+    /**
+     * Validating registrant details
+     *
+     * @param data
+     *
+     * @return errors array
+     *
+     */
     public function registerValidation($data) {
 
+        //password requiriment regex
         $passwordValidation = "/^([^A-Z]*|[^a-z]*|[^\d]*)$/i";
+
+        //error array
         $errors = [
             'emailError' => '',
             'firstnameError' => '',
@@ -78,7 +96,12 @@ class Users
         }
     }
 
-    /* If validation passed, user will be poassed to register method */
+    /**
+     * If validation passed, data will be poassed to register method
+     *
+     * @param data
+     *
+     */
     public function register($data) {
 
         $temp = 'blank-profile-picture.png';
@@ -98,7 +121,14 @@ class Users
         }
     }
 
-    /* Validating login details */
+    /**
+     * Validating login details
+     *
+     * @param data
+     *
+     * @return errors array
+     *
+     */
     public function loginValidation($data) {
 
         $errors = [
@@ -145,14 +175,18 @@ class Users
         }
     }
 
-    /* Login method */
+    /**
+     * If validation passed, data will be poassed to login method
+     *
+     * @param data
+     *
+     * @return User
+     *
+     * @throws Exception
+     */
     public function login($data) {
 
-        $errors = [
-            'emailError' => '',
-            'passwordError' => ''
-        ];
-
+        //preparing the query
         $sqlQuery = ("SELECT * FROM users WHERE email = :email");
 
         //Execute the query
@@ -177,9 +211,17 @@ class Users
         return $user;
     }
 
-    /* Change email validation */
+    /**
+     * Validating change email details
+     *
+     * @param data
+     *
+     * @return errors array
+     *
+     */
     public function changeEmailValidation($data) {
 
+        //error array
         $returnData = [
             'emailError' => '',
             'passwordError' => '',
@@ -191,6 +233,7 @@ class Users
             $returnData['emailError'] = 'Please enter email.';
         }
 
+        //check if email exist
         if ($this->findUserByEmail($data['email'])) {
             $returnData['emailError'] = 'Email already exists.';
         }
@@ -213,9 +256,16 @@ class Users
         return $returnData;
     }
 
-    /* Change user email */
+    /**
+     * If validation passed, data will be poassed to changeEmail method
+     *
+     * @param data
+     *
+     * @throws Exception
+     */
     public function changeEmail($data) {
 
+        //preparing sql query
         $sqlQuery = ("UPDATE users SET email = :email WHERE id = :user_id");
 
         //Execute the query
@@ -235,9 +285,17 @@ class Users
         }
     }
 
-    /* Change password validation */
+    /**
+     * Validating change password details
+     *
+     * @param data
+     *
+     * @return errors array
+     *
+     */
     public function changePasswordValidation($data) {
 
+        //errors array
         $returnData = [
             'newPasswordError' => '',
             'newPasswordConfirmationError' => '',
@@ -245,8 +303,10 @@ class Users
             'passSuccessMsg' => ''
         ];
 
+        //password requirement regex
         $passwordValidation = "/^([^A-Z]*|[^a-z]*|[^\d]*)$/i";
 
+        //new password validation
         if (empty($data['newPassword'])) {
             $returnData['newPasswordError'] = 'Please enter your new password.';
         } elseif (strlen($data['oldPassword']) < 8) {
@@ -255,12 +315,14 @@ class Users
             $returnData['newPasswordError'] = 'Password must contain: numeric value & capital letter.';
         }
 
+        //confirm new password validation
         if (empty($data['confirmNewPassword'])) {
             $returnData['newPasswordConfirmationError'] = 'Please confirm your password.';
         } elseif ($data['newPassword'] != $data['confirmNewPassword']) {
             $returnData['newPasswordConfirmationError'] = 'Passwords do not match, please try again.';
         }
 
+        //old password validation
         if (empty($data['oldPassword'])) {
             $returnData['oldPasswordError'] = 'Please enter your old password.';
         } elseif (!$this->passwordAuthentication($data['oldPassword'])) {
@@ -279,7 +341,13 @@ class Users
         return $returnData;
     }
 
-    /* Change password */
+    /**
+     * If validation passed, data will be poassed to changePassword method
+     *
+     * @param data
+     *
+     * @throws Exception
+     */
     public function changePassword($password) {
 
         $sqlQuery = ("UPDATE users SET password = :password WHERE id = :user_id");
@@ -299,7 +367,14 @@ class Users
         }
     }
 
-    /* Delete account validation */
+    /**
+     * Validating deleteAccount details
+     *
+     * @param data
+     *
+     * @return errors array
+     *
+     */
     public function deleteAccountValidation($data) {
 
         $returnData = [
@@ -330,26 +405,60 @@ class Users
         }
     }
 
-    /* Change password*/
+    /**
+     * If validation passed, deleteAccount method will be called
+     *
+     * @throws Exception
+     */
     public function deleteAccount() {
 
-        $sqlQuery = ("DELETE FROM users WHERE id = :user_id");
+        try {
+            //From this point and until the transaction is commited, changes can be reverted
+            $this->_dbHandle->beginTransaction();
 
-        //Execute the query
-        try
-        {
-            $statement = $this->_dbHandle->prepare($sqlQuery); // prepare a PDO statement
-            $statement->bindParam(':user_id', $_SESSION['user_id']);
-            $statement->execute(); // execute the PDO statement
-        }
-        catch (PDOException $e)
-        {
-            //If there is a PDO exception, throw a standard exception
-            throw new Exception('Database query error');
+            try
+            {
+                $sqlQuery = ("DELETE FROM users WHERE id = :user_id");
+                $statement = $this->_dbHandle->prepare($sqlQuery); // prepare a PDO statement
+                $statement->bindParam(':user_id', $_SESSION['user_id']);
+                $statement->execute(); // execute the PDO statement
+            }
+            catch (PDOException $e)
+            {
+                //If there is a PDO exception, throw a standard exception
+                throw new Exception('Database query error');
+            }
+
+            try
+            {
+                $sqlQuery1 = ("DELETE FROM tests WHERE user_email = :user_email");
+                $statement = $this->_dbHandle->prepare($sqlQuery1); // prepare a PDO statement
+                $statement->bindParam(':user_email', $_SESSION['email']);
+                $statement->execute(); // execute the PDO statement
+            }
+            catch (PDOException $e)
+            {
+                //If there is a PDO exception, throw a standard exception
+                throw new Exception('Database query error');
+            }
+
+            if (empty($e)) {
+                $this->_dbHandle->commit();
+            }
+        } catch (PDOException $e) {
+            //Failed to delete the user and test results from database, therefore, rollback is executed
+            $this->_dbHandle->rollBack();
+            throw $e;
         }
     }
 
-    /* Get user information */
+    /**
+     * Get user information method
+     *
+     * @param user_id
+     *
+     * @return user
+     */
     public function getUserInfo($user_id) {
 
         $sqlQuery = ("SELECT * FROM users WHERE id = :user_id");
@@ -373,7 +482,14 @@ class Users
         return $user; //TODO: This function needs to return an object, not an array
     }
 
-    /* Find user by email */
+    /**
+     * Find user by email
+     *
+     * @param email
+     *
+     * @return boolean
+     *
+     */
     public function findUserByEmail($email) {
 
         //Prepare statement
@@ -389,7 +505,13 @@ class Users
         }
     }
 
-    /* authintication */
+    /** Authentication
+     *
+     * @param password
+     *
+     * @return boolean
+     *
+     */
     public function passwordAuthentication($password) {
 
         //Prepare statement
@@ -411,13 +533,18 @@ class Users
         }
     }
 
-    /* Create new session */
+    /** Create new user session
+     *
+     * @param user
+     */
     public function createUserSession($user) {
         $_SESSION['user_id'] = $user->getUserID();
         $_SESSION['email'] = $user->getEmail();
     }
 
-    /* Delete current session */
+    /**
+     * Delete current session
+     */
     public function logout() {
         unset($_SESSION['user_id']);
         unset($_SESSION['email']);

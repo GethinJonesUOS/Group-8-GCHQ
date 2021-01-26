@@ -15,6 +15,9 @@ if (isLoggedIn()) {
     $view->userData = $userData->getUserInfo($user_id);
 
     $view->testData = $testData->getResults();
+} else {
+    //if session terminated and user is no longer logged in will be redirected to the login page
+    header('location: /login.php');
 }
 
 //If email change request submitted
@@ -36,22 +39,13 @@ if (isset($_POST['email-emailChange'], $_POST['password-emailChange'], $_POST['c
     ];
 
 
-    //call to login validation method in Users and pass the array
+    //call to email change validation method in Users and pass the array
     $view->returnData = $userData->changeEmailValidation($data);
 
     $data = null;
 
-} else {
-    $data = [
-        'email' => '',
-        'password' => '',
-        'emailError' => '',
-        'passwordError' => ''
-    ];
-}
-
-//If email change request submitted
-if (isset($_POST['newPassword-passwordChange'], $_POST['confirmNewPassword-passwordChange'], $_POST['oldPassword-passwordChange'], $_POST['changePassword'])) {
+    //If password change request submitted
+} elseif (isset($_POST['newPassword-passwordChange'], $_POST['confirmNewPassword-passwordChange'], $_POST['oldPassword-passwordChange'], $_POST['changePassword'])) {
 
     //associative array = abstract data type composed of a collection of (key, value) pairs
     $data = [
@@ -71,23 +65,13 @@ if (isset($_POST['newPassword-passwordChange'], $_POST['confirmNewPassword-passw
     ];
 
 
-    //call to login validation method in Users and pass the array
+    //call to password change validation method in Users and pass the array
     $view->returnData = $userData->changePasswordValidation($data);
 
     $data = null;
 
-} else {
-    $data = [
-        'newPassword' => '',
-        'confirmNewPassword' => '',
-        'oldPassword' => ''
-    ];
-}
-
-//If delete account request submitted
-if (isset($_POST['reply'], $_POST['pass'], $_POST['deleteAccount'])) {
-
     //If delete account request submitted
+} elseif (isset($_POST['reply'], $_POST['pass'], $_POST['deleteAccount'])) {
 
     //associative array = abstract data type composed of a collection of (key, value) pairs
     $data = [
@@ -111,10 +95,8 @@ if (isset($_POST['reply'], $_POST['pass'], $_POST['deleteAccount'])) {
     $data = null;
 
 } else {
-    $data = [
-        'reply' => '',
-        'pass' => ''
-    ];
+
+    $data = null;
 }
 
 require_once('Views/profile.phtml');

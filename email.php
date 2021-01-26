@@ -6,6 +6,7 @@ require_once 'Models/HintGenerator.php';
 require_once 'Models/Tooltips.php';
 require_once 'Models/Tests.php';
 
+// Redirect to login page if request is received without logged in session
 if (!isLoggedIn()) {
     header('location: /login.php');
     exit;
@@ -87,7 +88,7 @@ if (isset($_POST['action'])) {
 
             $tests = new Tests();
             $result = ['test_name' => 'Email Test', 'result' => $score];
-            $tests->addResluts($result);
+            $tests->addResults($result);
             header('location: /profile.php');
             exit;
         } else {

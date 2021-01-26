@@ -7,17 +7,32 @@ require_once 'Models/Test.php';
 class Tests
 {
 
+    /**
+     *Instantiating variables
+     * @var PDO
+     * @var database
+     */
     protected $_dbHandle, $_dbInstance;
 
 
+    /**
+     * Costructor function class Tests
+     *
+     */
     public function __construct()
     {
         $this->_dbInstance = Database::getInstance();
         $this->_dbHandle = $this->_dbInstance->getDbConnection();
     }
 
-    //TODO: Change name to addResults (although resluts is pretty funny)
-    public function addResluts($data) {
+    /**
+     * Mutator method
+     * Adding new new test results
+     *
+     * @param data
+     *
+     */
+    public function addResults($data) {
 
         //gets current date
         $date = date('Y-m-d H:i:s');
@@ -32,6 +47,13 @@ class Tests
         $statement->execute(); // execute the PDO statement
     }
 
+    /**
+     * Accessor method
+     * Adding new new test results
+     *
+     * @return test_results
+     *
+     */
     public function getResults() {
 
         $sqlQuery = ("SELECT user_email, id, test_name, result, date FROM tests WHERE user_email LIKE :user_email_in");

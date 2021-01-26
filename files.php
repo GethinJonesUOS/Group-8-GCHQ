@@ -52,6 +52,24 @@ if (isset($_GET['action'])) {
                 header('location: /');
             }
             break;
+        case 'gettutorstatus':
+            $skip = 'false';
+            if (isset($_SESSION['files_tutor'])) {
+                if ($_SESSION['files_tutor'] == 'skip') {
+                    $skip = 'true';
+                }
+            }
+
+            echo '{"skipFileTutor": ' . $skip . '}';
+            break;
+        case 'settutorstatus':
+            if ($_POST['status']) {
+                $_SESSION['files_tutor'] = $_POST['status'];
+            } else {
+                http_response_code(403);
+                die('Forbidden');
+            }
+            break;
         default:
             echo 'Error: Bad request';
     }

@@ -8,8 +8,6 @@ $view->pageTitle = 'Webbrowser';
 
 $tests = new Tests();
 
-$view = new stdClass();
-$view->pageTitle = 'Email';
 $view->scripts = ['/js/webbrowser.js'];
 
 //if session terminated and user is no longer logged in will be redirected to the login page
